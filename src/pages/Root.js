@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom"
 import MainNavigation from "../components/header/MainNavigation"
 import AsideLeft from "../components/aside/AsideLeft"
 import AsideRight from "../components/aside/AsideRight"
+import Main from "../components/main/Main"
 
 const Root = () => {
   return (
@@ -9,9 +10,9 @@ const Root = () => {
       <MainNavigation />
       <main className="flex justify-between">
         <AsideLeft  />
-        <div>
+        <Main>
           <Outlet />
-        </div>
+        </Main>
         <AsideRight />
       </main>
     </>
