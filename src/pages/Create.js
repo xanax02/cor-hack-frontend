@@ -1,8 +1,16 @@
 import React from 'react'
 import MainNavigation from '../components/header/MainNavigation'
 import AsideLeft from '../components/aside/AsideLeft'
-import Main from '../components/main/Main'
-import { Outlet } from 'react-router-dom'
+import CardSmall from '../components/UI/CardSmall'
+
+const DUMMY_DATA=[
+    {title: 'card1'},
+    {title: 'card2'},
+    {title: 'card3'},
+    {title: 'card4'},
+    {title: 'card4'},
+    {title: 'card4'},
+]
 
 const Create = () => {
   return (
@@ -10,9 +18,14 @@ const Create = () => {
         <MainNavigation />
         <main className='flex justify-between'>
             <AsideLeft />
-            <Main>
-                <Outlet />
-            </Main>
+            <div className='flex-grow h-full py-10 px-[110px] flex flex-wrap'>
+                <CardSmall create={'+'} title={'Create Project'} />
+                {
+                    DUMMY_DATA.map(data => {
+                        return <CardSmall title={data.title} />
+                    })
+                }
+            </div>
         </main>
     </>
   )
