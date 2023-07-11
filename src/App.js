@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Root from './pages/Root'
+import Signin from './pages/Signin';
 
 
 // routes
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
     children: [
 
     ]
+  },
+  {
+    path: '/signin',
+    element: <Signin />
   }
 ])
 
