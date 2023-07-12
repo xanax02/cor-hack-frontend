@@ -7,7 +7,7 @@ import AsideRight from "../components/aside/AsideRight"
 import Main from "../components/main/Main"
 import Overlay from "../components/UI/Overlay"
 
-const Root = () => {
+const RootMain = () => {
 
   const overlay = useSelector(state => state.createOverlay.showOverlay);
 
@@ -26,4 +26,4 @@ const Root = () => {
   )
 }
 
-export default Root
+export default RootMain;

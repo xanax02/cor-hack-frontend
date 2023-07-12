@@ -14,7 +14,7 @@ const MainNavigation = () => {
         <div className='flex'>
           <h1 className='text-4xl tracking-wider font-bold '>Name</h1>
           <div
-            className='ml-2 w-[172px] h-[48px] bg-[#171D21] rounded-lg flex items-center justify-center'
+            className='ml-8 w-[172px] h-[48px] bg-[#171D21] rounded-lg flex items-center justify-center cursor-pointer'
             onClick={() => {dispatch(createOverlayActions.setShowOverlay(true))}}
           >
             <p className='text-lg'>Projects</p>  
