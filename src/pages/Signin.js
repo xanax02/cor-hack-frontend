@@ -9,7 +9,7 @@ const Signin = () => {
         <button className='w-[66%] h-14 bg-[#0D253F] hover:bg-[#0e2844] rounded-lg px-2 mt-5 tracking-wider duration-200'>Submit</button>
       </div>
       <div className=''>
-        <img className='h-full w-full' src='./assets/app.jpg' />
+        <img className='h-full w-full' src='./assets/app.jpg' alt='img' />
       </div>
     </div>
   )
