@@ -14,13 +14,13 @@ const RootMain = () => {
   return (
     <>
       {overlay && <Overlay />}
-      <MainNavigation />
+      <MainNavigation sidebarFull={'true'} />
       <main className="flex justify-between">
         <AsideLeft  />
         <Main>
           <Outlet />
         </Main>
-        <AsideRight />
+        {/* <AsideRight /> */}
       </main>
     </>
   )

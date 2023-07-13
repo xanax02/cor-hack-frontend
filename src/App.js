@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import RootMain from './pages/RootMain'
 import Signin from './pages/Signin';
-import Create from './pages/Create';
+import Console from './pages/Console';
 
 
 // routes
@@ -17,8 +17,8 @@ const router = createBrowserRouter([
     element: <Signin />
   },
   {
-    path: '/create',
-    element: <Create />
+    path: '/console',
+    element: <Console />
   }
 ])
 
