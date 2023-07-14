@@ -19,7 +19,7 @@ const Console = () => {
     return (
         <>
             <MainNavigation />
-            <main className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-8 w-[70%] mx-auto mt-14'>
+            <main className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-y-8 w-[70%] mx-auto mt-14'>
                 <CardSmall create={'+'} title={'Create Project'} />
                 {
                     DUMMY_DATA.map(data => {
