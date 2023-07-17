@@ -9,8 +9,8 @@ const currentProjectSlice = createSlice({
     name: 'currentProject',
     initialState,
     reducers: {
-        setProject(state, action) {
-            state.projectId = action.payload.projectId,
+        setCurrentProject (state, action) {
+            state.projectId = action.payload.projectId;
             state.apps = action.payload.apps
         }
     }
