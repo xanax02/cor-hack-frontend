@@ -22,7 +22,7 @@ const SidebarDropdown = (props) => {
                 <DropDownItem title='App1' />
                 <DropDownItem title='App2' />
                 <div className='flex w-full items-center justify-center pt-2 border-t-2 border-white/5 px-4'>
-                    <Link to={'/new/app'} className='-ml-2'><span className='text-[#0D253F] font-bold text-xl mr-1'>+</span> Add app</Link>
+                    <Link to={'/new/app'} className='-ml-2'><span className='text-[#ffffff] font-bold text-xl mr-1'>+</span> Add app</Link>
                 </div>
             </div>
         </div>
