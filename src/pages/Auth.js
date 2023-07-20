@@ -6,7 +6,11 @@ const Auth = () => {
   const [searchQuery] = useSearchParams();
   const isLogin = (searchQuery.get('mode') === 'signin' || searchQuery.size === 0);
 
-  
+  const submitHandler = () => {
+    
+    //api
+    const url = ''
+  }
 
   return (
     <div className='w-[100vw] h-[100vh] flex overflow-hidden'>

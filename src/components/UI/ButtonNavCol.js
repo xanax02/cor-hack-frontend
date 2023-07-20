@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { MdOutlineNavigateNext } from 'react-icons/md';
+// import { MdOutlineNavigateNext } from 'react-icons/md';
 
 const ButtonNavCol = (props) => {
     return (

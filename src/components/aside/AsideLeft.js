@@ -2,6 +2,7 @@ import React from 'react'
 
 import { IoMdArrowDropdown } from 'react-icons/io'
 import SidebarDropdown from './SidebarDropdown'
+import { Link } from 'react-router-dom'
 
 const DUMMY_DATA = [
     {title: 'app1'},
@@ -27,7 +28,7 @@ const AsideLeft = () => {
         <p>Bundles</p>
       </div>
       <div className='h-[88px] flex items-center justify-center hover:bg-[#1E272D] duration-200'>
-        <p>Settings</p>
+        <Link to={'/settings/configure'}><p>Settings</p></Link>
       </div>
     </div>
   )

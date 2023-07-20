@@ -5,6 +5,7 @@ import Auth from './pages/Auth';
 import Console from './pages/Console';
 import Project from './pages/Project';
 import CreateApp from './pages/CreateApp';
+import Settings from './pages/Settings';
 
 
 // routes
@@ -16,7 +17,8 @@ const router = createBrowserRouter([
       { 
         path: 'app/:id/',
         element: '',
-      }
+      },
+      {path: 'settings/configure', element: <Settings />}
     ]
   },
   {
