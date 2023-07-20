@@ -1,27 +1,49 @@
-import React, { useRef } from 'react'
-import ServiceInput from '../components/UI/ServiceInput'
-import ButtonOutline from '../components/UI/ButtonOutline';
+import React, { useRef } from "react";
+import ServiceInput from "../components/UI/ServiceInput";
+import ButtonOutline from "../components/UI/ButtonOutline";
+import BorderedContainer from "../components/layout/BorderedContainer";
 
 const Settings = () => {
+  const folderRef = useRef();
+  const fileRef = useRef();
+  const commands = useRef();
+  const cronRef = useRef();
 
-    const folderRef = useRef();
+  return (
+    <div className="flex m-8">
+      <div className="w-[60%] ">
+        <BorderedContainer>
+          <ServiceInput
+            title="CronString"
+            placeholder="Your cron string"
+            ref={cronRef}
+          />
+        </BorderedContainer>
+        <BorderedContainer>
+          <p className="mb-2">Configure App</p>
+          <ServiceInput
+            title="folder"
+            placeholder="Your folder path"
+            ref={folderRef}
+          />
+          <ServiceInput
+            title="files"
+            placeholder="Your file path"
+            ref={folderRef}
+          />
+          <ServiceInput
+            title="commands"
+            placeholder="Your commands"
+            ref={folderRef}
+          />
+          <div className="text-right mt-6">
+            <ButtonOutline title="Save" />
+          </div>
+        </BorderedContainer>
+      </div>
+      <div></div>
+    </div>
+  );
+};
 
-    return (
-        <div className='flex m-8'>
-            <div className='w-[60%] border-2 border-white rounded-lg p-4'>
-                <p className='mb-2'>Configure App</p>
-                <ServiceInput title='folder' ref={folderRef} />
-                <ServiceInput title='files' ref={folderRef} />
-                <ServiceInput title='commands' ref={folderRef} />
-                <div className='text-right mt-6'>
-                    <ButtonOutline title='Save' />
-                </div>
-            </div>
-            <div>
-
-            </div>
-        </div>
-    )
-}
-
-export default Settings
+export default Settings;
