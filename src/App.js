@@ -1,10 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import RootMain from './pages/RootMain'
-import Signin from './pages/Signin';
+import Auth from './pages/Auth';
 import Console from './pages/Console';
 import Project from './pages/Project';
 import CreateApp from './pages/CreateApp';
+import Settings from './pages/Settings';
 
 
 // routes
@@ -16,12 +17,13 @@ const router = createBrowserRouter([
       { 
         path: 'app/:id/',
         element: '',
-      }
+      },
+      {path: 'settings/configure', element: <Settings />}
     ]
   },
   {
-    path: '/signin',
-    element: <Signin />
+    path: '/auth',
+    element: <Auth />
   },
   {
     path: '/console',
