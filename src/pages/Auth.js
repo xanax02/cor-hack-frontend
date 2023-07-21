@@ -1,7 +1,10 @@
 import React, { useRef } from "react";
-import { Link, useSearchParams, redirect } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  //navigation hook
+  const navigate = useNavigate();
+
   //refs
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -32,11 +35,12 @@ const Auth = () => {
         }
 
         const token = await response.text();
+        // console.log(token);
         localStorage.setItem("token", token);
+        navigate("/console");
       } catch (err) {
         console.log(err);
       } finally {
-        redirect("/console");
         return;
       }
     }
