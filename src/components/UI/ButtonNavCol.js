@@ -5,12 +5,10 @@ import React from "react";
 const ButtonNavCol = (props) => {
   return (
     <div
-      className="bg-[#0D253F] flex px-8 py-2 rounded-md items-center cursor-pointer "
+      className="bg-[#0D253F] flex px-8 py-2 rounded-md items-center cursor-pointer"
       onClick={props.onClick}
     >
-      <button className="text-2xl" disabled={props.disabled}>
-        {props.title}
-      </button>
+      <button className="text-2xl">{props.title}</button>
       {/* <MdOutlineNavigateNext
                 className='text-gray-200 text-4xl cursor-pointer hover:bg-white/5 duration-200 rounded-full'
             /> */}
