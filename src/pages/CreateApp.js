@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import cronstrue from "cronstrue";
 import cronParser from "cron-parser";
@@ -9,12 +9,14 @@ const CreateApp = () => {
   const navigate = useNavigate();
   const appName = useRef();
   const appDesc = useRef();
-  const cronString = useRef();
-  const [validCron, setValidCron] = useState(false);
+  const cronStringRef = useRef();
+  const [validCron, setValidCron] = useState(true);
+  const [cronValue, setCronValue] = useState("");
   const [allFieldsValid, setAllFieldsValid] = useState(false);
 
   // when the submit button is clicked
   const submitHandler = () => {
+    // all feilds validator
     //fetchapi
     console.log(appName.current.value);
     console.log(appDesc.current.value);
@@ -23,11 +25,13 @@ const CreateApp = () => {
 
   // on every cron string change this function will run and parse the cron string
   const validator = (event) => {
-    let isValidator = true;
     try {
-      cronParser.parseExpression(event.target.value);
-    } catch (e) {
-      isValidator = false;
+      const result = cronstrue.toString(event.target.value, { locale: "en" });
+      setValidCron(true);
+      setCronValue(result);
+    } catch (err) {
+      console.log(err);
+      setValidCron(false);
     }
   };
 
@@ -50,10 +54,16 @@ const CreateApp = () => {
           type="text"
           className="bg-gray-700 focus:outline-none text-lg block rounded-lg border-gray-600 p-2.5"
           placeholder="cron-string"
-          ref={cronString}
+          ref={cronStringRef}
           onChange={validator}
         />
-        <p>Not a valid cron string</p>
+        <p>
+          {cronStringRef?.current?.value === undefined
+            ? ""
+            : validCron
+            ? cronValue
+            : "Not a valid cron"}
+        </p>
 
         <label className="block mb-2 text-lg font-medium mt-8 ">
           Description
@@ -64,11 +74,7 @@ const CreateApp = () => {
           ref={appDesc}
         />
         <div className="flex mt-4 items-center justify-end">
-          <ButtonNavCol
-            disable={true}
-            title="Continue"
-            onClick={submitHandler}
-          />
+          <ButtonNavCol title="Continue" onClick={submitHandler} />
         </div>
       </div>
     </div>
