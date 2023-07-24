@@ -12,27 +12,25 @@ const Project = () => {
   const nextHandler = async () => {
     //fetch api for new project
     const token = localStorage.getItem("token");
-    if (projectName.current?.value === undefined || projectName)
-      try {
-        await fetch("http://localhost:4200/project", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: token,
-          },
-          body: JSON.stringify({
-            projectName: projectName.current.value,
-            createAt: new Date().toISOString(),
-          }),
-        });
-        navigate("/", { replace: true });
-      } catch (err) {
-        if ((err.message = "no name")) {
-          alert("please give a name to your project");
-        } else {
-          alert("Something went wrong. Please try again");
-        }
-      }
+    // if (projectName.current?.value === undefined || projectName)
+    try {
+      const response = await fetch("http://localhost:4200/project", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token,
+        },
+        body: JSON.stringify({
+          projectName: projectName.current.value,
+          createAt: new Date().toISOString(),
+        }),
+      });
+      const result = await response.text();
+      console.log(result);
+      navigate("/", { replace: true });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
