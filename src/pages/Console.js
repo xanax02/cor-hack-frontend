@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { projectsActions } from "../store/projects-slice";
+import { currentProjectActions } from "../store/currentProject-slice";
 
 import MainNavigation from "../components/header/MainNavigation";
 import CardSmall from "../components/UI/CardSmall";
 
 const Console = () => {
+  const userToken = localStorage.getItem("token");
+  const dispatch = useDispatch();
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:4200/project", {
+      method: "GET",
+      headers: {
+        authorization: userToken,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        setProjects(result);
+        dispatch(projectsActions.setProjects(result));
+        console.log(result);
+      });
+  }, []);
+
+  const selectProject = (projectId) => {
+    dispatch(currentProjectActions.setCurrentProject(projectId));
+  };
+
   return (
     <>
       <MainNavigation />
@@ -12,9 +40,18 @@ const Console = () => {
         <Link to={"/new/project"}>
           <CardSmall create={"+"} title={"Create Project"} />
         </Link>
-        {/* {DUMMY_DATA.map((data, index) => {
-          return <CardSmall key={index + 1} title={data.title} />;
-        })} */}
+        {projects.map((data, index) => {
+          return (
+            <Link to={"/"} key={index + 1}>
+              <CardSmall
+                title={data.projectName}
+                onClick={() => {
+                  selectProject(data._id);
+                }}
+              />
+            </Link>
+          );
+        })}
       </main>
     </>
   );

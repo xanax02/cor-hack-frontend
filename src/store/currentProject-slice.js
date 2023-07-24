@@ -9,7 +9,7 @@ const currentProjectSlice = createSlice({
   initialState,
   reducers: {
     setCurrentProject(state, action) {
-      state.projectId = action.payload.projectId;
+      state.projectId = action.payload;
     },
   },
 });
