@@ -1,34 +1,38 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 import ButtonNavCol from "../components/UI/ButtonNavCol";
 
 const Project = () => {
   const projectName = useRef();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
 
   const nextHandler = async () => {
     //fetch api for new project
     const token = localStorage.getItem("token");
-    try {
-      const response = fetch("http://localhost:4200/project", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: token,
-        },
-        body: JSON.stringify({
-          projectName: projectName.current.value,
-          createAt: new Date().toISOString(),
-        }),
-      });
-      console.log("response", response);
-      navigate("/", { replace: true });
-    } catch (err) {
-      console.log(err);
-    }
+    if (projectName.current?.value === undefined || projectName)
+      try {
+        await fetch("http://localhost:4200/project", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+          body: JSON.stringify({
+            projectName: projectName.current.value,
+            createAt: new Date().toISOString(),
+          }),
+        });
+        navigate("/", { replace: true });
+      } catch (err) {
+        if ((err.message = "no name")) {
+          alert("please give a name to your project");
+        } else {
+          alert("Something went wrong. Please try again");
+        }
+      }
   };
 
   return (

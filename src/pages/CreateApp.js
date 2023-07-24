@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import cronstrue from "cronstrue";
-import cronParser from "cron-parser";
 
 import ButtonNavCol from "../components/UI/ButtonNavCol";
 
@@ -12,14 +11,21 @@ const CreateApp = () => {
   const cronStringRef = useRef();
   const [validCron, setValidCron] = useState(true);
   const [cronValue, setCronValue] = useState("");
-  const [allFieldsValid, setAllFieldsValid] = useState(false);
 
   // when the submit button is clicked
   const submitHandler = () => {
     // all feilds validator
     //fetchapi
-    console.log(appName.current.value);
-    console.log(appDesc.current.value);
+    if (
+      !validCron ||
+      cronStringRef.current?.value === undefined ||
+      cronStringRef.current?.value === "" ||
+      appName.current?.value === undefined ||
+      appName.current?.value === ""
+    ) {
+      alert("Please enter the valid details");
+      return;
+    }
     navigate("/", { replace: true });
   };
 
