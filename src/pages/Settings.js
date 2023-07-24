@@ -1,7 +1,7 @@
 import React from "react";
 
-import BorderedGrayContainer from "../components/layout/BorderedGrayContainer";
 import Inputs from "../components/appConfiguration/Inputs";
+import ConfigDetails from "../components/appConfiguration/ConfigDetails";
 
 const Settings = (props) => {
   return (
@@ -10,9 +10,7 @@ const Settings = (props) => {
         <Inputs />
       </div>
       <div className="w-[38%]">
-        <BorderedGrayContainer>
-          <p>Configuration</p>
-        </BorderedGrayContainer>
+        <ConfigDetails />
       </div>
     </div>
   );
