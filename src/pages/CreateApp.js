@@ -41,6 +41,7 @@ const CreateApp = () => {
         },
         body: JSON.stringify({
           cronString: cronStringRef.current.value,
+          readableCron: cronValue,
           appName: appName.current.value,
           projectId,
           createdAt: new Date().toISOString(),

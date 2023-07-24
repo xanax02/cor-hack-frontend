@@ -1,47 +1,19 @@
-import React, { useRef } from "react";
-import ServiceInput from "../components/UI/ServiceInput";
-import ButtonOutline from "../components/UI/ButtonOutline";
-import BorderedContainer from "../components/layout/BorderedContainer";
+import React from "react";
 
-const Settings = () => {
-  const folderRef = useRef();
-  const fileRef = useRef();
-  const commandRef = useRef();
-  const cronRef = useRef();
+import BorderedGrayContainer from "../components/layout/BorderedGrayContainer";
+import Inputs from "../components/appConfiguration/Inputs";
 
+const Settings = (props) => {
   return (
-    <div className="flex m-8">
+    <div className="flex m-8 justify-between">
       <div className="w-[60%] ">
-        <BorderedContainer>
-          <ServiceInput
-            title="CronString"
-            placeholder="Your cron string"
-            ref={cronRef}
-          />
-        </BorderedContainer>
-        <BorderedContainer>
-          <p className="mb-2">Configure App</p>
-          <ServiceInput
-            title="folder"
-            placeholder="Your folder path"
-            ref={fileRef}
-          />
-          <ServiceInput
-            title="files"
-            placeholder="Your file path"
-            ref={commandRef}
-          />
-          <ServiceInput
-            title="commands"
-            placeholder="Your commands"
-            ref={folderRef}
-          />
-          <div className="text-right mt-6">
-            <ButtonOutline title="Save" />
-          </div>
-        </BorderedContainer>
+        <Inputs />
       </div>
-      <div></div>
+      <div className="w-[38%]">
+        <BorderedGrayContainer>
+          <p>Configuration</p>
+        </BorderedGrayContainer>
+      </div>
     </div>
   );
 };
