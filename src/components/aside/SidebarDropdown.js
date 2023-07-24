@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 const SidebarDropdown = (props) => {
   const [drop, setDrop] = useState(true);
   const [apps, setApps] = useState();
-  const projectId = useSelector((state) => state.currentProject.projectId);
+  const projectId =
+    useSelector((state) => state.currentProject.projectId) ||
+    localStorage.getItem("currentProject");
   const userToken = localStorage.getItem("token");
   //   console.log(projectId);
 
@@ -24,7 +26,7 @@ const SidebarDropdown = (props) => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [projectId, userToken]);
 
   return (
     <div className="w-full flex flex-col items-center text-lg border-y-2 border-gray-500 cursor-pointer">
@@ -44,9 +46,9 @@ const SidebarDropdown = (props) => {
           drop ? "flex flex-col mb-4 items-center justify-center" : "hidden"
         } duration-200 w-full`}
       >
-        {apps.map((app) => {
+        {apps?.map((app, index) => {
           return (
-            <Link to={"/"}>
+            <Link to={"/"} key={index + 1}>
               <DropDownItem title={app.appName} />
             </Link>
           );

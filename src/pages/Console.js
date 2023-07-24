@@ -27,10 +27,11 @@ const Console = () => {
         dispatch(projectsActions.setProjects(result));
         console.log(result);
       });
-  }, []);
+  }, [userToken, dispatch]);
 
   const selectProject = (projectId) => {
     dispatch(currentProjectActions.setCurrentProject(projectId));
+    localStorage.setItem("currentProject", projectId);
   };
 
   return (

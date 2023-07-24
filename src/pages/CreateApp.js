@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import cronstrue from "cronstrue";
 
 import ButtonNavCol from "../components/UI/ButtonNavCol";
+import { useSelector } from "react-redux";
 
 const CreateApp = () => {
   const navigate = useNavigate();
@@ -11,9 +12,13 @@ const CreateApp = () => {
   const cronStringRef = useRef();
   const [validCron, setValidCron] = useState(true);
   const [cronValue, setCronValue] = useState("");
+  const userToken = localStorage.getItem("token");
+  const projectId =
+    useSelector((state) => state.currentProject.projectId) ||
+    localStorage.getItem("currentProject");
 
   // when the submit button is clicked
-  const submitHandler = () => {
+  const submitHandler = async () => {
     // all feilds validator
     //fetchapi
     if (
@@ -26,7 +31,28 @@ const CreateApp = () => {
       alert("Please enter the valid details");
       return;
     }
-    navigate("/", { replace: true });
+
+    try {
+      const response = await fetch("http://localhost:4200/app", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: userToken,
+        },
+        body: JSON.stringify({
+          cronString: cronStringRef.current.value,
+          appName: appName.current.value,
+          projectId,
+          createdAt: new Date().toISOString(),
+        }),
+      });
+      const appId = await response.text();
+      localStorage.setItem("appId", appId);
+      navigate("/", { replace: true });
+    } catch (err) {
+      console.log(err);
+      alert("something went wrong. Please try again");
+    }
   };
 
   // on every cron string change this function will run and parse the cron string
@@ -36,7 +62,6 @@ const CreateApp = () => {
       setValidCron(true);
       setCronValue(result);
     } catch (err) {
-      console.log(err);
       setValidCron(false);
     }
   };

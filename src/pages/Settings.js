@@ -6,7 +6,7 @@ import BorderedContainer from "../components/layout/BorderedContainer";
 const Settings = () => {
   const folderRef = useRef();
   const fileRef = useRef();
-  const commands = useRef();
+  const commandRef = useRef();
   const cronRef = useRef();
 
   return (
@@ -24,12 +24,12 @@ const Settings = () => {
           <ServiceInput
             title="folder"
             placeholder="Your folder path"
-            ref={folderRef}
+            ref={fileRef}
           />
           <ServiceInput
             title="files"
             placeholder="Your file path"
-            ref={folderRef}
+            ref={commandRef}
           />
           <ServiceInput
             title="commands"
