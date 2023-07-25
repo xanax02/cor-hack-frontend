@@ -48,8 +48,7 @@ const CreateApp = () => {
         }),
       });
       const appId = await response.text();
-      localStorage.setItem("appId", appId);
-      navigate("/", { replace: true });
+      navigate(`/app/${appId}`, { replace: true });
     } catch (err) {
       console.log(err);
       alert("something went wrong. Please try again");

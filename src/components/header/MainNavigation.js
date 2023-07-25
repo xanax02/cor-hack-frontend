@@ -1,12 +1,36 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
-import { IoMdArrowDropdown } from "react-icons/io";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import { createOverlayActions } from "../../store/createOverlay-slice";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { currentAppActions } from "../../store/currentApp-slice";
 
 const MainNavigation = (props) => {
   const dispatch = useDispatch();
+  const params = useParams();
+  const [app, setApp] = useState();
+  const userToken = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (params.id) {
+      try {
+        fetch(`http://localhost:4200/app/${params.id}`, {
+          method: "GET",
+          headers: {
+            authorization: userToken,
+          },
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            setApp(result);
+            dispatch(currentAppActions.setCurrentApp(result));
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [params.id, userToken, dispatch]);
 
   return (
     <div className="h-[70px] bg-[#0D253F] flex pr-20 items-center justify-between">
@@ -29,7 +53,7 @@ const MainNavigation = (props) => {
               <p className="text-lg mr-1">Projects</p>
               <IoMdArrowDropdown className=" right-8 top-4" />
             </div>
-            {/* <p className="ml-12 opacity-90">{appName}</p> */}
+            <p className="ml-12 opacity-90">{app?.appName}</p>
           </>
         )}
       </div>
