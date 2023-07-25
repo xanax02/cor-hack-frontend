@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-
-import { IoMdArrowDropdown } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { currentAppActions } from "../../store/currentApp-slice";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const SidebarDropdown = (props) => {
   const [drop, setDrop] = useState(true);
   const [apps, setApps] = useState();
+  const dispatch = useDispatch();
   const projectId =
     useSelector((state) => state.currentProject.projectId) ||
     localStorage.getItem("currentProject");
@@ -48,8 +50,13 @@ const SidebarDropdown = (props) => {
       >
         {apps?.map((app, index) => {
           return (
-            <Link to={"/"} key={index + 1}>
-              <DropDownItem title={app.appName} />
+            <Link to={"/"} key={index + 1} className="w-full">
+              <DropDownItem
+                onClick={() => {
+                  dispatch(currentAppActions.setCurrentApp(app));
+                }}
+                title={app.appName}
+              />
             </Link>
           );
         })}
@@ -66,7 +73,10 @@ const SidebarDropdown = (props) => {
 
 const DropDownItem = (props) => {
   return (
-    <div className="h-12 hover:bg-white/10 w-full flex justify-center items-center ">
+    <div
+      onClick={props.onClick}
+      className="h-12 hover:bg-white/10 w-full flex justify-center items-center "
+    >
       <p>{props.title}</p>
     </div>
   );

@@ -19,15 +19,18 @@ const MainNavigation = (props) => {
           <h1 className="text-4xl tracking-wider font-bold">Name</h1>
         </div>
         {props.sidebarFull && (
-          <div
-            className="ml-5 rounded-lg flex items-center justify-center cursor-pointer text-gray-300 hover:text-white duration-100"
-            onClick={() => {
-              dispatch(createOverlayActions.setShowOverlay(true));
-            }}
-          >
-            <p className="text-lg mr-1">Projects</p>
-            <IoMdArrowDropdown className=" right-8 top-4" />
-          </div>
+          <>
+            <div
+              className="ml-5 rounded-lg flex items-center justify-center cursor-pointer text-gray-300 hover:text-white duration-100"
+              onClick={() => {
+                dispatch(createOverlayActions.setShowOverlay(true));
+              }}
+            >
+              <p className="text-lg mr-1">Projects</p>
+              <IoMdArrowDropdown className=" right-8 top-4" />
+            </div>
+            {/* <p className="ml-12 opacity-90">{appName}</p> */}
+          </>
         )}
       </div>
       <div className="flex">

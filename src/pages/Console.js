@@ -31,6 +31,7 @@ const Console = () => {
   const selectProject = (projectId) => {
     dispatch(currentProjectActions.setCurrentProject(projectId));
     localStorage.setItem("currentProject", projectId);
+    localStorage.removeItem("appName");
   };
 
   return (
