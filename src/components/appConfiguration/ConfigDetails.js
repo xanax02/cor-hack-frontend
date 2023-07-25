@@ -5,6 +5,8 @@ const ConfigDetails = () => {
   return (
     <BorderedGrayContainer>
       <p>Configuration</p>
+      <p>Folders</p>
+      <p>C/Abhay/documents/abc</p>
     </BorderedGrayContainer>
   );
 };

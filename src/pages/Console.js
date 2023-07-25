@@ -25,7 +25,6 @@ const Console = () => {
       .then((result) => {
         setProjects(result);
         dispatch(projectsActions.setProjects(result));
-        console.log(result);
       });
   }, [userToken, dispatch]);
 
