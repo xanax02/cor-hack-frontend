@@ -37,12 +37,12 @@ const Overlay = () => {
   return (
     <>
       <div
-        className="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-20"
+        className="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-20 z-10"
         onClick={() => {
           dispatch(createOverlayActions.setShowOverlay(false));
         }}
       />
-      <div className="absolute min-h-[144px] w-[50%] bg-[#242E34] top-[40%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-md p-2 flex">
+      <div className="absolute min-h-[144px] w-[50%] bg-[#242E34] top-[40%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-md p-2 flex z-10">
         <fieldset className="border-[5px] rounded-md border-gray-500 p-2 w-full">
           <legend className="text-2xl font-semibold">Your Projects</legend>
           {projects?.map((project, index) => {
