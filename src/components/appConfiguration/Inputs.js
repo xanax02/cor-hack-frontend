@@ -5,22 +5,45 @@ import ServiceInput from "../UI/ServiceInput";
 import ButtonOutline from "../UI/ButtonOutline";
 import { appConfigurationActions } from "../../store/appconfiguration-slice";
 import TerminalInput from "./TerminalInput";
+import BorderedGrayContainer from "../layout/BorderedGrayContainer";
 
 const Inputs = () => {
-  const folderRef = useRef();
-  const fileRef = useRef();
+  const folderNameRef = useRef();
+  const folderDescRef = useRef();
+  const folderPathRef = useRef();
+  const fileNameRef = useRef();
+  const fileDescRef = useRef();
+  const filePathRef = useRef();
+  const commandNameRef = useRef();
+  const commandDescRef = useRef();
   const commandRef = useRef();
 
   const dispatch = useDispatch();
 
   const addHandler = (type) => {
     if (type === "folder") {
-      dispatch(appConfigurationActions.addFolder(folderRef.current.value));
-      folderRef.current.value = "";
+      dispatch(
+        appConfigurationActions.addFolder({
+          name: folderNameRef.current?.value,
+          description: folderDescRef.current?.value,
+          path: folderPathRef.current?.value,
+        })
+      );
+      folderDescRef.current.value = "";
+      folderNameRef.current.value = "";
+      folderPathRef.current.value = "";
     }
     if (type === "file") {
-      dispatch(appConfigurationActions.addFile(fileRef.current.value));
-      fileRef.current.value = "";
+      dispatch(
+        appConfigurationActions.addFile({
+          name: fileNameRef.current?.value,
+          description: fileDescRef.current?.value,
+          path: filePathRef.current?.value,
+        })
+      );
+      fileDescRef.current.value = "";
+      fileNameRef.current.value = "";
+      filePathRef.current.value = "";
     }
   };
 
@@ -30,25 +53,53 @@ const Inputs = () => {
         <p className="mb-4">CronString</p>
         <p>* * * * *</p>
       </BorderedContainer>
+
+      {/* app Configuration from here */}
       <BorderedContainer>
         <p className="mb-2">Configure App</p>
-        <ServiceInput
-          title="folder"
-          placeholder="Your folder path"
-          ref={folderRef}
-          onClick={() => {
-            addHandler("folder");
-          }}
-        />
-        <ServiceInput
-          title="files"
-          placeholder="Your file path"
-          ref={fileRef}
-          onClick={() => {
-            addHandler("file");
-          }}
-        />
-        <TerminalInput />
+        <p className="mb-2">Folders</p>
+        <BorderedGrayContainer>
+          <ServiceInput
+            placeholder={{ name: "Folder", place: "folder" }}
+            ref={{
+              nameRef: folderNameRef,
+              descRef: folderDescRef,
+              pathRef: folderPathRef,
+            }}
+            onClick={() => {
+              addHandler("folder");
+            }}
+          />
+        </BorderedGrayContainer>
+
+        {/* file Configuration from here */}
+        <p className="mb-2">Files</p>
+        <BorderedGrayContainer>
+          <p>Folders</p>
+          <ServiceInput
+            placeholder={{ name: "File", place: "file" }}
+            ref={{
+              nameRef: fileNameRef,
+              descRef: fileDescRef,
+              pathRef: filePathRef,
+            }}
+            onClick={() => {
+              addHandler("file");
+            }}
+          />
+        </BorderedGrayContainer>
+
+        {/* commands from here */}
+        <p className="mb-2">Commands</p>
+        <BorderedGrayContainer>
+          <TerminalInput
+            ref={{
+              nameRef: commandNameRef,
+              descRef: commandDescRef,
+              commandRef: commandRef,
+            }}
+          />
+        </BorderedGrayContainer>
         <div className="text-right mt-6">
           <ButtonOutline title="Save" />
         </div>

@@ -1,44 +1,41 @@
-import React, { useState } from "react";
-import CodeEditor from "@uiw/react-textarea-code-editor";
+import React, { forwardRef } from "react";
+import CodeMirror from "@uiw/react-codemirror";
+import { StreamLanguage } from "@codemirror/language";
+import { shell } from "@codemirror/legacy-modes/mode/shell";
 
-const TerminalInput = () => {
-  //   const [code, setCode] = useState(`function add(a, b) {\n  return a + b;\n}`);
-
-  //   return (
-  //     <div className="p-4 h-screen bg-black text-white">
-  //       <div className="border border-gray-700 rounded-lg overflow-hidden">
-  //         <div className="h-40 bg-black p-2 font-mono text-sm text-green-400">
-  //           {output}
-  //         </div>
-  //         <div className="flex p-2 bg-black">
-  //           <span className="text-green-400">$</span>
-  //           <TextAreaEditor
-  //             value={input}
-  //             onChange={handleInputChange}
-  //             onKeyPress={handleEnterKeyPress}
-  //             className="flex-1 bg-black ml-2 font-mono text-green-400 outline-none resize-none"
-  //           />
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
+const TerminalInput = forwardRef((props, ref) => {
   return (
-    <CodeEditor
-      //   value={code}
-      language="shell"
-      placeholder="Please enter commands."
-      data-color-mode="dark"
-      minHeight={60}
-      //   onChange={(evn) => setCode(evn.target.value)}
-      padding={15}
-      style={{
-        fontSize: 14,
-        backgroundColor: "#121212",
-        fontFamily:
-          "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
-      }}
-    />
+    <>
+      <p className="mb-2">Name</p>
+      <input
+        ref={ref.nameRef}
+        placeholder="Name for the command"
+        className="bg-[#242E34] focus:outline-none h-[40px] flex-grow px-4 placeholder:text-gray-600 block w-full"
+      />
+      <p className="my-2">Description</p>
+      <input
+        placeholder="Description for the command"
+        ref={ref.descRef}
+        className="bg-[#242E34] focus:outline-none h-[40px] flex-grow px-4 placeholder:text-gray-600 block w-full"
+      />
+      <p className="my-2">command</p>
+      <CodeMirror
+        ref={ref.commandRef}
+        className="w-full"
+        minHeight="40px"
+        readOnly={false}
+        extensions={[StreamLanguage.define(shell)]}
+        theme={"dark"}
+        style={{ fontSize: "14px" }}
+        placeholder={"Your commands here"}
+      />
+      <div className="text-right">
+        <button className="bg-[#171D21] px-8 h-9" onClick={props.onClick}>
+          Add
+        </button>
+      </div>
+    </>
   );
-};
+});
 
 export default TerminalInput;

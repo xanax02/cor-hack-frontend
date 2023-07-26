@@ -10,13 +10,31 @@ const ConfigDetails = () => {
   return (
     <BorderedGrayContainer>
       <p>Configuration</p>
-      {folders?.length > 0 && <p className="mt-2">Folders</p>}
+      {folders?.length > 0 && <p className="my-2">Folders</p>}
       {folders?.map((folder, index) => {
-        return <DisplayDiv data={folder} key={index + 1} />;
+        return (
+          <DisplayDiv
+            key={index + 1}
+            title={folder.name}
+            desc={folder.description}
+            type={"Path"}
+            data={folder.path}
+          />
+        );
       })}
-      {files?.length > 0 && <p className="mt-2">Files</p>}
+
+      {/* Files */}
+      {files?.length > 0 && <p className="my-2">Files</p>}
       {files?.map((file, index) => {
-        return <DisplayDiv data={file} key={index + 1} />;
+        return (
+          <DisplayDiv
+            key={index + 1}
+            title={file.name}
+            desc={file.description}
+            type={"Path"}
+            data={file.path}
+          />
+        );
       })}
     </BorderedGrayContainer>
   );
