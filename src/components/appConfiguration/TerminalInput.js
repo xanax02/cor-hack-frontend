@@ -1,9 +1,19 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { StreamLanguage } from "@codemirror/language";
 import { shell } from "@codemirror/legacy-modes/mode/shell";
 
 const TerminalInput = forwardRef((props, ref) => {
+  const [code, setCode] = useState();
+  const onChange = React.useCallback((value, viewUpdate) => {
+    setCode(value);
+  }, []);
+
+  const submitHandler = () => {
+    props.onClick(code);
+    setCode("");
+  };
+
   return (
     <>
       <p className="mb-2">Name</p>
@@ -20,7 +30,7 @@ const TerminalInput = forwardRef((props, ref) => {
       />
       <p className="my-2">command</p>
       <CodeMirror
-        ref={ref.commandRef}
+        value={code}
         className="w-full"
         minHeight="40px"
         readOnly={false}
@@ -28,9 +38,10 @@ const TerminalInput = forwardRef((props, ref) => {
         theme={"dark"}
         style={{ fontSize: "14px" }}
         placeholder={"Your commands here"}
+        onChange={onChange}
       />
       <div className="text-right">
-        <button className="bg-[#171D21] px-8 h-9" onClick={props.onClick}>
+        <button className="bg-[#171D21] px-8 h-9" onClick={submitHandler}>
           Add
         </button>
       </div>

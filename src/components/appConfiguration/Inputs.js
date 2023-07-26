@@ -16,11 +16,10 @@ const Inputs = () => {
   const filePathRef = useRef();
   const commandNameRef = useRef();
   const commandDescRef = useRef();
-  const commandRef = useRef();
 
   const dispatch = useDispatch();
 
-  const addHandler = (type) => {
+  const addHandler = (type, code) => {
     if (type === "folder") {
       dispatch(
         appConfigurationActions.addFolder({
@@ -45,6 +44,18 @@ const Inputs = () => {
       fileNameRef.current.value = "";
       filePathRef.current.value = "";
     }
+  };
+
+  const commandAddHandler = (data) => {
+    dispatch(
+      appConfigurationActions.addCommand({
+        name: commandNameRef.current.value,
+        description: commandDescRef.current.value,
+        command: data,
+      })
+    );
+    commandDescRef.current.value = "";
+    commandNameRef.current.value = "";
   };
 
   return (
@@ -96,8 +107,8 @@ const Inputs = () => {
             ref={{
               nameRef: commandNameRef,
               descRef: commandDescRef,
-              commandRef: commandRef,
             }}
+            onClick={commandAddHandler}
           />
         </BorderedGrayContainer>
         <div className="text-right mt-6">

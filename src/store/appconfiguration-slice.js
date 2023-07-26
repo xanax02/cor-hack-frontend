@@ -26,7 +26,7 @@ const appConfigurationSlice = createSlice({
       state.files.push(action.payload);
     },
     addCommand(state, action) {
-      state.folders = state.folders.push(action.payload);
+      state.commands.push(action.payload);
     },
   },
 });

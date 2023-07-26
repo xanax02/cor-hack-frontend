@@ -6,6 +6,9 @@ import DisplayDiv from "./DisplayDiv";
 const ConfigDetails = () => {
   const folders = useSelector((state) => state.appConfiguration?.folders);
   const files = useSelector((state) => state.appConfiguration?.files);
+  const commands = useSelector((state) => state.appConfiguration?.commands);
+
+  //   console.log(commands);
 
   return (
     <BorderedGrayContainer>
@@ -33,6 +36,20 @@ const ConfigDetails = () => {
             desc={file.description}
             type={"Path"}
             data={file.path}
+          />
+        );
+      })}
+
+      {/* Commands */}
+      {commands?.length > 0 && <p className="my-2">Commands</p>}
+      {commands?.map((command, index) => {
+        return (
+          <DisplayDiv
+            key={index + 1}
+            title={command.name}
+            desc={command.description}
+            type={"Command"}
+            data={command.command}
           />
         );
       })}
