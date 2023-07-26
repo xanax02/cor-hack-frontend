@@ -20,10 +20,10 @@ const appConfigurationSlice = createSlice({
       state.commands = action.payload;
     },
     addFolder(state, action) {
-      state.folders = state.folders.push(action.payload);
+      state.folders.push(action.payload);
     },
     addFile(state, action) {
-      state.folders = state.folders.push(action.payload);
+      state.files.push(action.payload);
     },
     addCommand(state, action) {
       state.folders = state.folders.push(action.payload);
@@ -31,5 +31,5 @@ const appConfigurationSlice = createSlice({
   },
 });
 
-export default appConfigurationSlice;
+export default appConfigurationSlice.reducer;
 export const appConfigurationActions = appConfigurationSlice.actions;

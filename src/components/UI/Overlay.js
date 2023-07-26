@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { createOverlayActions } from "../../store/createOverlay-slice";
 import { currentProjectActions } from "../../store/currentProject-slice";
+import { currentAppActions } from "../../store/currentApp-slice";
 
 const Overlay = () => {
   const dispatch = useDispatch();
   const userToken = localStorage.getItem("token");
   const [projects, setProjects] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:4200/project", {
@@ -28,7 +30,8 @@ const Overlay = () => {
   const changeProject = (id) => {
     dispatch(createOverlayActions.setShowOverlay(false));
     dispatch(currentProjectActions.setCurrentProject(id));
-    localStorage.removeItem("appName");
+    dispatch(currentAppActions.setCurrentApp({}));
+    navigate("/", { replace: true });
   };
 
   return (

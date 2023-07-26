@@ -29,6 +29,8 @@ const MainNavigation = (props) => {
       } catch (err) {
         console.log(err);
       }
+    } else {
+      setApp("");
     }
   }, [params.id, userToken, dispatch]);
 

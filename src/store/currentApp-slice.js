@@ -14,5 +14,5 @@ const currentAppSlice = createSlice({
   },
 });
 
-export default currentAppSlice;
+export default currentAppSlice.reducer;
 export const currentAppActions = currentAppSlice.actions;

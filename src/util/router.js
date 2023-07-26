@@ -16,8 +16,8 @@ export const router = createBrowserRouter([
       {
         path: "app/:id/",
         element: "",
+        children: [{ path: "settings/configure", element: <Settings /> }],
       },
-      { path: "settings/configure", element: <Settings /> },
     ],
   },
   {
