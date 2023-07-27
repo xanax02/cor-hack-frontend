@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { baseURL } from "../util/baseURL";
 
 const Auth = () => {
   //navigation hook
@@ -16,7 +17,7 @@ const Auth = () => {
 
   const submitHandler = async () => {
     //api call
-    const url = "http://localhost:4200/auth";
+    const url = `${baseURL}/auth`;
 
     if (isLogin) {
       try {

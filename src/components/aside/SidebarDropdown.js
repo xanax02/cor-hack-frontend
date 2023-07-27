@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { baseURL } from "../../util/baseURL";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 const SidebarDropdown = (props) => {
@@ -12,11 +13,10 @@ const SidebarDropdown = (props) => {
     useSelector((state) => state.currentProject.projectId) ||
     localStorage.getItem("currentProject");
   const userToken = localStorage.getItem("token");
-  //   console.log(projectId);
 
   useEffect(() => {
     try {
-      fetch(`http://localhost:4200/app?projectId=${projectId}`, {
+      fetch(`${baseURL}/app?projectId=${projectId}`, {
         method: "GET",
         headers: {
           authorization: userToken,

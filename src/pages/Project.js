@@ -1,20 +1,18 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
 
+import { baseURL } from "../util/baseURL";
 import ButtonNavCol from "../components/UI/ButtonNavCol";
 
 const Project = () => {
   const projectName = useRef();
   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
 
   const nextHandler = async () => {
     //fetch api for new project
     const token = localStorage.getItem("token");
-    // if (projectName.current?.value === undefined || projectName)
     try {
-      const response = await fetch("http://localhost:4200/project", {
+      const response = await fetch(`${baseURL}/project`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -6,12 +6,15 @@ import Project from "../pages/Project";
 import CreateApp from "../pages/CreateApp";
 import Settings from "../pages/Settings";
 import { loader as tokenLoader } from "./tokenLoader";
+import ErrorElement from "../components/layout/ErrorElement";
 
 // routes
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootMain />,
+    loader: tokenLoader,
+    errorElement: <ErrorElement />,
     children: [
       {
         path: "app/:id/",
@@ -37,5 +40,6 @@ export const router = createBrowserRouter([
   {
     path: "/new/app",
     element: <CreateApp />,
+    loader: tokenLoader,
   },
 ]);

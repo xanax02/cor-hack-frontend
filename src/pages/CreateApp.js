@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import cronstrue from "cronstrue";
 
+import { baseURL } from "../util/baseURL";
 import ButtonNavCol from "../components/UI/ButtonNavCol";
 import { useSelector } from "react-redux";
 
@@ -33,7 +34,7 @@ const CreateApp = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:4200/app", {
+      const response = await fetch(`${baseURL}/app`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

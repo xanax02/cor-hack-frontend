@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
+import { baseURL } from "../util/baseURL";
 import { projectsActions } from "../store/projects-slice";
 import { currentProjectActions } from "../store/currentProject-slice";
-
 import MainNavigation from "../components/header/MainNavigation";
 import CardSmall from "../components/UI/CardSmall";
 
@@ -13,7 +14,7 @@ const Console = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4200/project", {
+    fetch(`${baseURL}/project`, {
       method: "GET",
       headers: {
         authorization: userToken,

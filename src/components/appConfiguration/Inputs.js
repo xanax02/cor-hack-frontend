@@ -18,7 +18,7 @@ const Inputs = () => {
 
   const dispatch = useDispatch();
 
-  const addHandler = (type, code) => {
+  const addHandler = (type) => {
     if (type === "folder") {
       dispatch(
         appConfigurationActions.addFolder({

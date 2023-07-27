@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
+import { baseURL } from "../../util/baseURL";
 import { createOverlayActions } from "../../store/createOverlay-slice";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { currentAppActions } from "../../store/currentApp-slice";
@@ -15,7 +16,7 @@ const MainNavigation = (props) => {
   useEffect(() => {
     if (params.id) {
       try {
-        fetch(`http://localhost:4200/app/${params.id}`, {
+        fetch(`${baseURL}/app/${params.id}`, {
           method: "GET",
           headers: {
             authorization: userToken,

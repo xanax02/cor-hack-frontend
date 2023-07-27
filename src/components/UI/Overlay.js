@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import { baseURL } from "../../util/baseURL";
 import { createOverlayActions } from "../../store/createOverlay-slice";
 import { currentProjectActions } from "../../store/currentProject-slice";
 import { currentAppActions } from "../../store/currentApp-slice";
@@ -13,7 +14,7 @@ const Overlay = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:4200/project", {
+    fetch(`${baseURL}/project`, {
       method: "GET",
       headers: {
         authorization: userToken,
