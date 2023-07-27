@@ -1,14 +1,22 @@
 import React from "react";
-import BorderedGrayContainer from "../layout/BorderedGrayContainer";
-import { useSelector } from "react-redux";
-import DisplayDiv from "./DisplayDiv";
+import { useDispatch, useSelector } from "react-redux";
 
-const ConfigDetails = () => {
+import BorderedGrayContainer from "../layout/BorderedGrayContainer";
+import DisplayDiv from "./DisplayDiv";
+import { appConfigurationActions } from "../../store/appconfiguration-slice";
+
+const ConfigDetails = (props) => {
   const folders = useSelector((state) => state.appConfiguration?.folders);
   const files = useSelector((state) => state.appConfiguration?.files);
-  const commands = useSelector((state) => state.appConfiguration?.commands);
+  const commands = useSelector((state) => state.appConfiguration?.scripts);
+  const appId = useSelector((state) => state.currentApp.app?.id);
 
-  //   console.log(commands);
+  const dispatch = useDispatch();
+
+  const submitHandler = () => {
+    props.onClick({ folders, files, commands, appId });
+    dispatch(appConfigurationActions.resetData());
+  };
 
   return (
     <BorderedGrayContainer>
@@ -49,10 +57,25 @@ const ConfigDetails = () => {
             title={command.name}
             desc={command.description}
             type={"Command"}
-            data={command.command}
+            data={command.script}
           />
         );
       })}
+
+      {/* submit button */}
+      {(folders.length !== 0 ||
+        files.length !== 0 ||
+        commands.length !== 0) && (
+        <div className="text-right mt-6">
+          {/* <ButtonOutline onClick={submitHandler} title="Save" /> */}
+          <button
+            className="text-xl px-4  rounded-md outline outline-[#24c58f] text-[#24c58f]"
+            onClick={submitHandler}
+          >
+            Save
+          </button>
+        </div>
+      )}
     </BorderedGrayContainer>
   );
 };

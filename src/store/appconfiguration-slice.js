@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   folders: [],
   files: [],
-  commands: [],
+  scripts: [],
 };
 
 const appConfigurationSlice = createSlice({
@@ -26,7 +26,12 @@ const appConfigurationSlice = createSlice({
       state.files.push(action.payload);
     },
     addCommand(state, action) {
-      state.commands.push(action.payload);
+      state.scripts.push(action.payload);
+    },
+    resetData(state) {
+      state.folders = [];
+      state.files = [];
+      state.scripts = [];
     },
   },
 });

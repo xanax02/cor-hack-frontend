@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import BorderedContainer from "../layout/BorderedContainer";
 import ServiceInput from "../UI/ServiceInput";
-import ButtonOutline from "../UI/ButtonOutline";
 import { appConfigurationActions } from "../../store/appconfiguration-slice";
 import TerminalInput from "./TerminalInput";
 import BorderedGrayContainer from "../layout/BorderedGrayContainer";
@@ -51,7 +50,7 @@ const Inputs = () => {
       appConfigurationActions.addCommand({
         name: commandNameRef.current.value,
         description: commandDescRef.current.value,
-        command: data,
+        script: data,
       })
     );
     commandDescRef.current.value = "";
@@ -111,9 +110,6 @@ const Inputs = () => {
             onClick={commandAddHandler}
           />
         </BorderedGrayContainer>
-        <div className="text-right mt-6">
-          <ButtonOutline title="Save" />
-        </div>
       </BorderedContainer>
     </>
   );
