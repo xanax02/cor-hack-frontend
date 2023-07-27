@@ -1,27 +1,40 @@
-import React, { useRef } from 'react'
-import ServiceInput from '../components/UI/ServiceInput'
-import ButtonOutline from '../components/UI/ButtonOutline';
+import React from "react";
 
-const Settings = () => {
+import { baseURL } from "../util/baseURL";
+import Inputs from "../components/appConfiguration/Inputs";
+import ConfigDetails from "../components/appConfiguration/ConfigDetails";
 
-    const folderRef = useRef();
+const Settings = (props) => {
+  const userToken = localStorage.getItem("token");
 
-    return (
-        <div className='flex m-8'>
-            <div className='w-[60%] border-2 border-white rounded-lg p-4'>
-                <p className='mb-2'>Configure App</p>
-                <ServiceInput title='folder' ref={folderRef} />
-                <ServiceInput title='files' ref={folderRef} />
-                <ServiceInput title='commands' ref={folderRef} />
-                <div className='text-right mt-6'>
-                    <ButtonOutline title='Save' />
-                </div>
-            </div>
-            <div>
+  const submitHandler = async (data) => {
+    if (!data) return;
 
-            </div>
-        </div>
-    )
-}
+    try {
+      const response = await fetch(`${baseURL}/spec`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: userToken,
+        },
+        body: JSON.stringify(data),
+      });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-export default Settings
+  return (
+    <div className="flex m-8 justify-between">
+      <div className="w-[60%] ">
+        <Inputs />
+      </div>
+      <div className="w-[38%]">
+        <ConfigDetails onClick={submitHandler} />
+      </div>
+    </div>
+  );
+};
+
+export default Settings;

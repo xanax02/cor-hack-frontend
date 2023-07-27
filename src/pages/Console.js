@@ -1,34 +1,62 @@
-import React from 'react'
-import MainNavigation from '../components/header/MainNavigation'
-import AsideLeft from '../components/aside/AsideLeft'
-import CardSmall from '../components/UI/CardSmall'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-const DUMMY_DATA = [
-    { title: 'card1' },
-    { title: 'card2' },
-    { title: 'card3' },
-    { title: 'card4' },
-    // { title: 'card4' },
-    // { title: 'card4' },
-    // { title: 'card4' },
-    // { title: 'card4' },
-    // { title: 'card4' },
-]
+import { baseURL } from "../util/baseURL";
+import { projectsActions } from "../store/projects-slice";
+import { currentProjectActions } from "../store/currentProject-slice";
+import MainNavigation from "../components/header/MainNavigation";
+import CardSmall from "../components/UI/CardSmall";
 
 const Console = () => {
-    return (
-        <>
-            <MainNavigation />
-            <main className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-y-8 w-[70%] mx-auto mt-14'>
-                <CardSmall create={'+'} title={'Create Project'} />
-                {
-                    DUMMY_DATA.map(data => {
-                        return <CardSmall title={data.title} />
-                    })
-                }
-            </main>
-        </>
-    )
-}
+  const userToken = localStorage.getItem("token");
+  const dispatch = useDispatch();
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    fetch(`${baseURL}/project`, {
+      method: "GET",
+      headers: {
+        authorization: userToken,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        setProjects(result);
+        dispatch(projectsActions.setProjects(result));
+      });
+  }, [userToken, dispatch]);
+
+  const selectProject = (projectId) => {
+    dispatch(currentProjectActions.setCurrentProject(projectId));
+    localStorage.setItem("currentProject", projectId);
+    localStorage.removeItem("appName");
+  };
+
+  return (
+    <>
+      <MainNavigation />
+      <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-y-8 w-[70%] mx-auto mt-14">
+        <Link to={"/new/project"}>
+          <CardSmall create={"+"} title={"Create Project"} />
+        </Link>
+        {projects.map((data, index) => {
+          return (
+            <Link to={"/"} key={index + 1}>
+              <CardSmall
+                title={data.projectName}
+                onClick={() => {
+                  selectProject(data._id);
+                }}
+              />
+            </Link>
+          );
+        })}
+      </main>
+    </>
+  );
+};
 
 export default Console;
