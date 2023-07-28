@@ -18,6 +18,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "app/:id/",
+        loader: tokenLoader,
         element: "",
         children: [{ path: "settings/configure", element: <Settings /> }],
       },
