@@ -40,7 +40,7 @@ const Auth = () => {
         localStorage.setItem("token", token);
         navigate("/console");
       } catch (err) {
-        console.log(err);
+        alert("Wrong email or password");
       } finally {
         return;
       }
@@ -91,8 +91,8 @@ const Auth = () => {
           </p>
         </Link>
       </div>
-      <div className="">
-        {/* <img className='h-full w-full' src='./assets/app.jpg' alt='img' /> */}
+      <div className="h-full w-full pt-24">
+        <img className="h-[80%] w-full" src="./assets/image2.svg" alt="img" />
       </div>
     </div>
   );

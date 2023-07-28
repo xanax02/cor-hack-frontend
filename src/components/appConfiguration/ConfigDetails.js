@@ -9,7 +9,7 @@ const ConfigDetails = (props) => {
   const folders = useSelector((state) => state.appConfiguration?.folders);
   const files = useSelector((state) => state.appConfiguration?.files);
   const commands = useSelector((state) => state.appConfiguration?.scripts);
-  const appId = useSelector((state) => state.currentApp.app?.id);
+  const appId = useSelector((state) => state.currentApp.app._id);
 
   const dispatch = useDispatch();
 

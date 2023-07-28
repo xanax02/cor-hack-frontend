@@ -39,11 +39,11 @@ const MainNavigation = (props) => {
     <div className="h-[70px] bg-[#0D253F] flex pr-20 items-center justify-between">
       <div className="flex items-center">
         <div
-          className={`w-[300px] ${
+          className={`w-[250px] ${
             props.sidebarFull ? "bg-[#171D21]" : ""
           } h-[70px] flex items-center justify-center`}
         >
-          <h1 className="text-4xl tracking-wider font-bold">Name</h1>
+          <h1 className="text-4xl tracking-wider font-bold">DiagSensei</h1>
         </div>
         {props.sidebarFull && (
           <>
