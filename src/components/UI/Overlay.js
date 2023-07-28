@@ -60,7 +60,7 @@ const Overlay = () => {
             );
           })}
           <div className="w-full text-right mt-3">
-            <Link className=" right-2 bottom-2" to={"/"}>
+            <Link className=" right-2 bottom-2" to={"/new/project"}>
               <p className="text-lg font-semibold bg-[#171D21] px-4 py-2 rounded-lg inline-block">
                 Create new project
               </p>
