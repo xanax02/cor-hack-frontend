@@ -6,6 +6,7 @@ import { baseURL } from "../../util/baseURL";
 import { createOverlayActions } from "../../store/createOverlay-slice";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { currentAppActions } from "../../store/currentApp-slice";
+import Profile from "./Profile";
 
 const MainNavigation = (props) => {
   const dispatch = useDispatch();
@@ -43,7 +44,12 @@ const MainNavigation = (props) => {
             props.sidebarFull ? "bg-[#171D21]" : ""
           } h-[70px] flex items-center justify-center`}
         >
-          <h1 className="text-4xl tracking-wider font-bold">DiagSensei</h1>
+          <h1
+            className="text-4xl tracking-wider font-bold"
+            style={{ fontFamily: "Righteous" }}
+          >
+            DiagSensei
+          </h1>
         </div>
         {props.sidebarFull && (
           <>
@@ -61,9 +67,7 @@ const MainNavigation = (props) => {
         )}
       </div>
       <div className="flex">
-        <Link className="text-gray-300 hover:text-gray-50" to={"/"}>
-          Profile
-        </Link>
+        <Profile />
       </div>
     </div>
   );
