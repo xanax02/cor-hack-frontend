@@ -10,6 +10,7 @@ const ConfigDetails = (props) => {
   const files = useSelector((state) => state.appConfiguration?.files);
   const commands = useSelector((state) => state.appConfiguration?.scripts);
   const appId = useSelector((state) => state.currentApp.app._id);
+  const disable = useSelector((state) => state.appConfiguration?.isPresent);
 
   const dispatch = useDispatch();
 
@@ -19,6 +20,11 @@ const ConfigDetails = (props) => {
 
   const cancelHandler = () => {
     dispatch(appConfigurationActions.resetData());
+  };
+
+  const deleteHandler = () => {
+    dispatch(appConfigurationActions.resetData());
+    dispatch(appConfigurationActions.setDataPresent(false));
   };
 
   return (
@@ -73,13 +79,14 @@ const ConfigDetails = (props) => {
           {/* <ButtonOutline onClick={submitHandler} title="Save" /> */}
           <button
             className="text-xl px-4 mr-4 rounded-md outline outline-red-600 text-red-500"
-            onClick={cancelHandler}
+            onClick={disable ? deleteHandler : cancelHandler}
           >
-            Cancel
+            {disable ? "Delete" : "Cancel"}
           </button>
           <button
             className="text-xl px-4  rounded-md outline outline-[#24c58f] text-[#24c58f]"
             onClick={submitHandler}
+            disabled={disable}
           >
             Save
           </button>

@@ -18,7 +18,7 @@ const appConfigurationSlice = createSlice({
       state.files = action.payload;
     },
     setCommands(state, action) {
-      state.commands = action.payload;
+      state.scripts = action.payload;
     },
     addFolder(state, action) {
       state.folders.push(action.payload);
@@ -33,6 +33,9 @@ const appConfigurationSlice = createSlice({
       state.folders = [];
       state.files = [];
       state.scripts = [];
+    },
+    setDataPresent(state, action) {
+      state.isPresent = action.payload;
     },
   },
 });

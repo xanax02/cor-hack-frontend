@@ -1,17 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { baseURL } from "../util/baseURL";
 import Inputs from "../components/appConfiguration/Inputs";
 import ConfigDetails from "../components/appConfiguration/ConfigDetails";
+import { useDispatch, useSelector } from "react-redux";
+import { appConfigurationActions } from "../store/appconfiguration-slice";
 
 const Settings = (props) => {
   const userToken = localStorage.getItem("token");
   const params = useParams();
+  const dispatch = useDispatch();
+
+  const handleData = (data) => {
+    console.log(data.commands);
+    dispatch(appConfigurationActions.setFiles(data.files));
+    dispatch(appConfigurationActions.setFolders(data.folders));
+    dispatch(appConfigurationActions.setCommands(data.commands));
+    dispatch(appConfigurationActions.setDataPresent(true));
+  };
 
   useEffect(() => {
     try {
-      fetch(`${baseURL}/spec/${params.id}`, {
+      fetch(`${baseURL}/spec/?appId=${params.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -19,7 +30,16 @@ const Settings = (props) => {
         },
       })
         .then((response) => response.json())
-        .then((result) => console.log(result));
+        .then((result) =>
+          fetch(`${baseURL}/spec/${result}`, {
+            method: "GET",
+            headers: {
+              authorization: userToken,
+            },
+          })
+            .then((response) => response.json())
+            .then((result) => handleData(result))
+        );
     } catch (err) {
       console.log("error");
     }
