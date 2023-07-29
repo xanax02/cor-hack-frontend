@@ -5,6 +5,7 @@ import { baseURL } from "../../util/baseURL";
 import { hostSliceAction } from "../../store/hosts-slice";
 import BorderedGrayContainer from "../layout/BorderedGrayContainer";
 import { Link } from "react-router-dom";
+import CardReport from "../UI/CardReport";
 
 const DashboardData = () => {
   const userToken = localStorage.getItem("token");
@@ -32,45 +33,25 @@ const DashboardData = () => {
   }, [userToken]);
 
   return (
-    <div className="p-8 flex">
-      <div className="w-[350px]">
-        <p className="mb-2">Hosts </p>
-        <BorderedGrayContainer>
-          <Link>
-            <div className="py-2 px-3 hover:bg-white/10 duration-200 cursor-pointer">
-              <p className="inline-block text-gray-300">Number of Host: </p>
-              <p className="inline-block ml-2">{hosts}</p>
-            </div>
-          </Link>
-        </BorderedGrayContainer>
-      </div>
-      <div className="w-[450px] ml-4">
-        <p className="mb-2">Bundles </p>
-        <BorderedGrayContainer>
-          <Link>
-            <div className="py-2 px-3 hover:bg-white/10 duration-200 cursor-pointer">
-              <p className="inline-block text-gray-300">Total Bundles: </p>
-              <p className="inline-block ml-2">{hosts}</p>
-            </div>
-          </Link>
-          <Link>
-            <div className="py-2 px-3 hover:bg-white/10 duration-200 cursor-pointer">
-              <p className="inline-block text-gray-300">
-                Number of processed bundles:{" "}
-              </p>
-              <p className="inline-block ml-2">{hosts}</p>
-            </div>
-          </Link>
-          <Link>
-            <div className="py-2 px-3 hover:bg-white/10 duration-200 cursor-pointer">
-              <p className="inline-block text-gray-300">
-                Number of processed bundles:{" "}
-              </p>
-              <p className="inline-block ml-2">{hosts}</p>
-            </div>
-          </Link>
-        </BorderedGrayContainer>
-      </div>
+    <div className="p-8 flex flex-wrap">
+      <CardReport
+        numbers={69}
+        title={"Systems Connected"}
+        button={"show systems"}
+        value={100}
+      />
+      <CardReport
+        numbers={8940}
+        title={"Processed Bundles"}
+        button={"show bundles"}
+        value={24}
+      />
+      <CardReport
+        numbers={27000}
+        title={"Fresh Bundles"}
+        button={"show bundles"}
+        value={76}
+      />
     </div>
   );
 };

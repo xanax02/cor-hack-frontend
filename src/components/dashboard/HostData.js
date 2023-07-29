@@ -21,9 +21,9 @@ const HostData = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [userToken]);
+  }, [userToken, appId]);
 
-  return <></>;
+  return <>{hosts.map((host) => console.log(host))}</>;
 };
 
 export default HostData;
