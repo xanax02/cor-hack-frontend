@@ -12,7 +12,7 @@ const Project = () => {
     //fetch api for new project
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`${baseURL}/project`, {
+      await fetch(`${baseURL}/project`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -23,7 +23,6 @@ const Project = () => {
           createAt: new Date().toISOString(),
         }),
       });
-      const result = await response.text();
       navigate("/", { replace: true });
     } catch (err) {
       console.log(err);

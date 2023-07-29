@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  isPresent: false,
   folders: [],
   files: [],
   scripts: [],

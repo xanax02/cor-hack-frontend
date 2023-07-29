@@ -7,6 +7,7 @@ import CreateApp from "../pages/CreateApp";
 import Settings from "../pages/Settings";
 import { loader as tokenLoader } from "./tokenLoader";
 import ErrorElement from "../components/layout/ErrorElement";
+import Dashboard from "../pages/Dashboard";
 
 // routes
 export const router = createBrowserRouter([
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
         loader: tokenLoader,
         element: "",
         children: [
+          { path: "dashboard", loader: tokenLoader, element: <Dashboard /> },
           {
             path: "settings/configure",
             loader: tokenLoader,

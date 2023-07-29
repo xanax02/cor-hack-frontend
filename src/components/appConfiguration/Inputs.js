@@ -1,12 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BorderedContainer from "../layout/BorderedContainer";
 import ServiceInput from "../UI/ServiceInput";
 import { appConfigurationActions } from "../../store/appconfiguration-slice";
 import TerminalInput from "./TerminalInput";
 import BorderedGrayContainer from "../layout/BorderedGrayContainer";
+import SnackBar from "../UI/SnackBar";
 
 const Inputs = () => {
+  const [open, setOpen] = useState(false);
+  const [data, setData] = useState(false);
   const folderNameRef = useRef();
   const folderDescRef = useRef();
   const folderPathRef = useRef();
@@ -42,6 +45,8 @@ const Inputs = () => {
         folderDescRef.current.value = "";
         folderNameRef.current.value = "";
         folderPathRef.current.value = "";
+      } else {
+        setOpen(true);
       }
     }
     if (type === "file") {
@@ -84,6 +89,14 @@ const Inputs = () => {
 
   return (
     <>
+      {!data && (
+        <SnackBar
+          open={open}
+          message={"Plase provide necessary details"}
+          severity="error"
+          setOpen={setOpen}
+        />
+      )}
       <BorderedContainer>
         <p className="mb-4">CronString</p>
         <p className="inline-block">{appCronString}</p>
@@ -113,7 +126,6 @@ const Inputs = () => {
         {/* file Configuration from here */}
         <p className="mb-2">Files</p>
         <BorderedGrayContainer>
-          <p>Folders</p>
           <ServiceInput
             placeholder={{ name: "File", place: "file" }}
             ref={{

@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
@@ -15,10 +15,8 @@ export default function SnackBar(props) {
     props.setOpen(false);
   };
 
-  console.log("No");
-
   return (
-    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    <Snackbar open={props.open} autoHideDuration={2000} onClose={handleClose}>
       <Alert
         onClose={handleClose}
         severity={props.severity}
