@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BorderedContainer from "../layout/BorderedContainer";
 import ServiceInput from "../UI/ServiceInput";
 import { appConfigurationActions } from "../../store/appconfiguration-slice";
@@ -16,52 +16,80 @@ const Inputs = () => {
   const commandNameRef = useRef();
   const commandDescRef = useRef();
 
+  const appCronString = useSelector(
+    (state) => state.currentApp?.app?.cronString
+  );
+  const appCronStringReadable = useSelector(
+    (state) => state.currentApp?.app?.readableCron
+  );
+
   const dispatch = useDispatch();
 
   const addHandler = (type) => {
     if (type === "folder") {
-      dispatch(
-        appConfigurationActions.addFolder({
-          name: folderNameRef.current?.value,
-          description: folderDescRef.current?.value,
-          path: folderPathRef.current?.value,
-        })
-      );
-      folderDescRef.current.value = "";
-      folderNameRef.current.value = "";
-      folderPathRef.current.value = "";
+      if (
+        folderNameRef.current?.value !== "" &&
+        folderDescRef.current?.value !== "" &&
+        folderPathRef.current?.value !== ""
+      ) {
+        dispatch(
+          appConfigurationActions.addFolder({
+            name: folderNameRef.current?.value,
+            description: folderDescRef.current?.value,
+            path: folderPathRef.current?.value,
+          })
+        );
+        folderDescRef.current.value = "";
+        folderNameRef.current.value = "";
+        folderPathRef.current.value = "";
+      }
     }
     if (type === "file") {
-      dispatch(
-        appConfigurationActions.addFile({
-          name: fileNameRef.current?.value,
-          description: fileDescRef.current?.value,
-          path: filePathRef.current?.value,
-        })
-      );
-      fileDescRef.current.value = "";
-      fileNameRef.current.value = "";
-      filePathRef.current.value = "";
+      if (
+        fileDescRef.current?.value !== "" &&
+        fileNameRef.current?.value !== "" &&
+        filePathRef.current?.value !== ""
+      ) {
+        dispatch(
+          appConfigurationActions.addFile({
+            name: fileNameRef.current?.value,
+            description: fileDescRef.current?.value,
+            path: filePathRef.current?.value,
+          })
+        );
+        fileDescRef.current.value = "";
+        fileNameRef.current.value = "";
+        filePathRef.current.value = "";
+      }
     }
   };
 
   const commandAddHandler = (data) => {
-    dispatch(
-      appConfigurationActions.addCommand({
-        name: commandNameRef.current.value,
-        description: commandDescRef.current.value,
-        script: data,
-      })
-    );
-    commandDescRef.current.value = "";
-    commandNameRef.current.value = "";
+    if (
+      commandDescRef.current?.value !== "" &&
+      commandNameRef.current?.value !== "" &&
+      data
+    ) {
+      dispatch(
+        appConfigurationActions.addCommand({
+          name: commandNameRef.current.value,
+          description: commandDescRef.current.value,
+          script: data,
+        })
+      );
+      commandDescRef.current.value = "";
+      commandNameRef.current.value = "";
+    }
   };
 
   return (
     <>
       <BorderedContainer>
         <p className="mb-4">CronString</p>
-        <p>* * * * *</p>
+        <p className="inline-block">{appCronString}</p>
+        <p className="inline-block ml-4 text-gray-400">
+          {appCronStringReadable}
+        </p>
       </BorderedContainer>
 
       {/* app Configuration from here */}

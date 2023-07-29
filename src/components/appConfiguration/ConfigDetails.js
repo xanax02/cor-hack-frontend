@@ -15,6 +15,9 @@ const ConfigDetails = (props) => {
 
   const submitHandler = () => {
     props.onClick({ folders, files, commands, appId });
+  };
+
+  const cancelHandler = () => {
     dispatch(appConfigurationActions.resetData());
   };
 
@@ -68,6 +71,12 @@ const ConfigDetails = (props) => {
         commands.length !== 0) && (
         <div className="text-right mt-6">
           {/* <ButtonOutline onClick={submitHandler} title="Save" /> */}
+          <button
+            className="text-xl px-4 mr-4 rounded-md outline outline-red-600 text-red-500"
+            onClick={cancelHandler}
+          >
+            Cancel
+          </button>
           <button
             className="text-xl px-4  rounded-md outline outline-[#24c58f] text-[#24c58f]"
             onClick={submitHandler}
