@@ -1,13 +1,47 @@
-import React from "react";
-import BorderedGrayContainer from "../layout/BorderedGrayContainer";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const DashboardData = (props) => {
-  console.log(props.data);
+import { baseURL } from "../../util/baseURL";
+import { hostSliceAction } from "../../store/hosts-slice";
 
-  props.data.map((report, index) => {
-    console.log(index, report);
-    return <h1>this is a report</h1>;
-  });
+const DashboardData = () => {
+  const userToken = localStorage.getItem("token");
+  const appId = useSelector((state) => state.currentApp?.app?._id);
+  const [hosts, setHosts] = useState();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      fetch(`${baseURL}/report/hosts?appId=${appId}`, {
+        method: "GET",
+        headers: {
+          authorization: userToken,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          setHosts(result.count);
+          dispatch(hostSliceAction.setHosts(result));
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [userToken]);
+
+  return (
+    <div className="p-8">
+      <div>
+        <p>Number of hosts: </p>
+        <p>{hosts}</p>
+      </div>
+      <div>
+        <p>Bundles: </p>
+        <p>Processed bundles: </p>
+        <p>Fresh bundles: </p>
+      </div>
+    </div>
+  );
 };
 
 export default DashboardData;
