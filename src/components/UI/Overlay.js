@@ -14,18 +14,23 @@ const Overlay = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${baseURL}/project`, {
-      method: "GET",
-      headers: {
-        authorization: userToken,
-      },
-    })
-      .then((response) => {
-        return response.json();
+    try {
+      fetch(`${baseURL}/project`, {
+        method: "GET",
+        headers: {
+          authorization: userToken,
+        },
       })
-      .then((result) => {
-        setProjects(result);
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((result) => {
+          setProjects(result);
+        });
+    } catch (err) {
+      console.log(err);
+      alert("something went wrong please try again");
+    }
   }, [userToken]);
 
   const changeProject = (id) => {

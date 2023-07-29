@@ -16,7 +16,7 @@ const ServiceInput = forwardRef((props, ref) => {
       />
       <ServiceInputItem
         title="Path"
-        placeholder={`Description for your ${props.placeholder.place}`}
+        placeholder={`Path for your ${props.placeholder.place}`}
         ref={ref.pathRef}
       />
       <div className="w-full text-right">

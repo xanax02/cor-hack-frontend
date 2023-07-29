@@ -11,7 +11,6 @@ const Project = () => {
   const nextHandler = async () => {
     //fetch api for new project
     const token = localStorage.getItem("token");
-    console.log(token);
     try {
       const response = await fetch(`${baseURL}/project`, {
         method: "PUT",
@@ -25,7 +24,6 @@ const Project = () => {
         }),
       });
       const result = await response.text();
-      console.log(result);
       navigate("/", { replace: true });
     } catch (err) {
       console.log(err);

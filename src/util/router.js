@@ -17,10 +17,25 @@ export const router = createBrowserRouter([
     errorElement: <ErrorElement />,
     children: [
       {
+        index: true,
+        loader: tokenLoader,
+        element: (
+          <h1 className="text-center text-2xl mt-10 font-semibold">
+            Please select an app
+          </h1>
+        ),
+      },
+      {
         path: "app/:id/",
         loader: tokenLoader,
         element: "",
-        children: [{ path: "settings/configure", element: <Settings /> }],
+        children: [
+          {
+            path: "settings/configure",
+            loader: tokenLoader,
+            element: <Settings />,
+          },
+        ],
       },
     ],
   },
