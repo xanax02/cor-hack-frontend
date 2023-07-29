@@ -48,7 +48,7 @@ const AppList = () => {
         {apps?.map((app, index) => {
           return (
             <NavLink
-              to={`/app/${app._id}`}
+              to={`/app/${app._id}/dashboard`}
               key={index + 1}
               children={({ isActive }) => {
                 return (
