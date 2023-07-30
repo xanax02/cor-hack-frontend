@@ -10,6 +10,7 @@ import ErrorElement from "../components/layout/ErrorElement";
 import Dashboard from "../pages/Dashboard";
 import Bundles from "../pages/Bundles";
 import Systems from "../pages/Systems";
+import SystemDetail from "../pages/SystemDetail";
 
 // routes
 export const router = createBrowserRouter([
@@ -40,7 +41,16 @@ export const router = createBrowserRouter([
             element: <Settings />,
           },
           { path: "bundles", loader: tokenLoader, element: <Bundles /> },
-          { path: "systems", loader: tokenLoader, element: <Systems /> },
+          {
+            path: "systems/",
+            loader: tokenLoader,
+            element: <Systems />,
+          },
+          {
+            path: "system/details/:hostname",
+            loader: tokenLoader,
+            element: <SystemDetail />,
+          },
         ],
       },
     ],

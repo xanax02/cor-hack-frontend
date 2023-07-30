@@ -70,27 +70,33 @@ const DashboardData = () => {
 
   return (
     <div className="p-8 flex flex-wrap">
-      <CardReport
-        numbers={systems}
-        title={"Systems Connected"}
-        button={"show systems"}
-        value={100}
-        link={`/app/${appId}/systems`}
-      />
-      <CardReport
-        numbers={processedBundles?.count}
-        title={"Processed Bundles"}
-        button={"show bundles"}
-        value={(processedBundles?.count / bundles?.count) * 100}
-        link={`/app/${appId}/bundles`}
-      />
-      <CardReport
-        numbers={freshBundles?.count}
-        title={"Fresh Bundles"}
-        button={"show bundles"}
-        value={(freshBundles?.count / bundles?.count) * 100}
-        link={`/app/${appId}/bundles`}
-      />
+      <div className="mr-6">
+        <CardReport
+          numbers={systems}
+          title={"Systems Connected"}
+          button={"show systems"}
+          value={100}
+          link={`/app/${appId}/systems`}
+        />
+      </div>
+      <div className="mr-6">
+        <CardReport
+          numbers={processedBundles?.count}
+          title={"Processed Bundles"}
+          button={"show bundles"}
+          value={(processedBundles?.count / bundles?.count) * 100}
+          link={`/app/${appId}/bundles`}
+        />
+      </div>
+      <div className="mr-6">
+        <CardReport
+          numbers={freshBundles?.count}
+          title={"Fresh Bundles"}
+          button={"show bundles"}
+          value={(freshBundles?.count / bundles?.count) * 100}
+          link={`/app/${appId}/bundles`}
+        />
+      </div>
     </div>
   );
 };

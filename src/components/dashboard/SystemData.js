@@ -1,13 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import BorderedGrayContainer from "../layout/BorderedGrayContainer";
-import DataList from "./DataList";
 import SmallLineChart from "../chart/SmallLineChart";
 import DataListNavigation from "./DataListNavigation";
+import SystemList from "./SystemList";
 
 const SystemData = () => {
   const systems = useSelector((state) => state.systems?.systems);
-  console.log(systems.hostnameList);
   return (
     <div className="w-[70%] mx-auto">
       {/* Header */}
@@ -15,15 +14,17 @@ const SystemData = () => {
       {/* System details */}
       <BorderedGrayContainer>
         <div className="flex justify-between">
-          <p className="text-gray-300">Number of systems connected :</p>
+          <p className="text-gray-300 text-2xl">
+            Number of systems connected :
+          </p>
           <div className="flex items-center">
-            <p className="mr-2">{systems.count}</p>
+            <p className="mr-2 text-2xl">{systems.count}</p>
             <SmallLineChart value={80} />
           </div>
         </div>
       </BorderedGrayContainer>
       {/* list */}
-      <DataList title={"Systems"} data={systems.hostnameList} />
+      <SystemList title={"Systems"} data={systems.hostnameList} />
     </div>
   );
 };

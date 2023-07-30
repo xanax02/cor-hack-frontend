@@ -5,12 +5,12 @@ const SmallLineChart = (props) => {
 
   useEffect(() => {
     setWidthValue(props.value);
-  }, []);
+  }, [props.value]);
 
   return (
-    <div className="w-[50px] h-0.5 bg-blue-200 rounded-xl">
+    <div className="w-[70px] h-1 bg-blue-200 rounded-xl">
       <div
-        className="h-0.5 bg-blue-700 rounded-2xl"
+        className="h-1 bg-blue-700 rounded-2xl"
         style={{
           width: `${widthValue}%`,
           transition: "width 0.5s ease-in-out",
