@@ -3,6 +3,7 @@ import Navigation from "../UI/Navigation";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import BorderedGrayContainer from "../layout/BorderedGrayContainer";
 import BundleDetailReportItem from "./BundleDetailReportItem";
+import BundleAllDetail from "./BundleAllDetail";
 
 const BundleDetailComp = (props) => {
   if (!props.data) {
@@ -15,7 +16,7 @@ const BundleDetailComp = (props) => {
         <BorderedGrayContainer>
           <div className="flex items-center justify-between px-16">
             <AssessmentIcon style={{ fontSize: "200px" }} />
-            <div className="">
+            <div className="mr-[80px]">
               <BundleDetailReportItem
                 title={"Hostname:"}
                 data={props.data?.hostName}
@@ -29,7 +30,7 @@ const BundleDetailComp = (props) => {
                 data={props.data?.folderReports[0]?.size}
               />
               <BundleDetailReportItem
-                title={"Bundle nameL"}
+                title={"Bundle name"}
                 data={props.data?.bundleName}
               />
               <BundleDetailReportItem
@@ -44,11 +45,7 @@ const BundleDetailComp = (props) => {
           </div>
         </BorderedGrayContainer>
       </div>
-      {/* <SystemDetailBundle
-        hostname={hostname}
-        title={"System bundles"}
-        data={systemBundles}
-      /> */}
+      <BundleAllDetail data={props.data} />
     </>
   );
 };
