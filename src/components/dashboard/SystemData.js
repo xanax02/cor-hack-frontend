@@ -7,7 +7,7 @@ import DataListNavigation from "./DataListNavigation";
 
 const SystemData = () => {
   const systems = useSelector((state) => state.systems?.systems);
-
+  console.log(systems.hostnameList);
   return (
     <div className="w-[70%] mx-auto">
       {/* Header */}

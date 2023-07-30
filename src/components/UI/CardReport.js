@@ -8,7 +8,7 @@ const CardReport = (props) => {
       <h2 className="text-6xl font-semibold mb-4">{props.numbers}</h2>
       <h3 className="text-xl mb-2">{props.title}</h3>
       <LineChart value={props.value} />
-      <Link to="">
+      <Link to={props.link}>
         <p className="bg-[#0D253F] px-4 py-1 rounded-lg cursor-pointer mt-6">
           {props.button}
         </p>

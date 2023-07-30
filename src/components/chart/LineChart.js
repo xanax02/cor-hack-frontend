@@ -5,7 +5,7 @@ const LineChart = (props) => {
 
   useEffect(() => {
     setWidthValue(props.value);
-  }, []);
+  }, [props.value]);
 
   return (
     <div className="w-[150px] h-2 bg-blue-200 rounded-xl">

@@ -5,6 +5,7 @@ import projectsSlice from "./projects-slice";
 import appConfigurationSlice from "./appconfiguration-slice";
 import currentAppSlice from "./currentApp-slice";
 import systemsSlice from "./systems-slice";
+import bundlesSlice from "./bundles-slice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     appConfiguration: appConfigurationSlice,
     currentApp: currentAppSlice,
     systems: systemsSlice,
+    bundles: bundlesSlice,
   },
 });

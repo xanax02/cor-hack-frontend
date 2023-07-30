@@ -4,11 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { baseURL } from "../../util/baseURL";
 import CardReport from "../UI/CardReport";
 import { systemsSliceActions } from "../../store/systems-slice";
+import { useParams } from "react-router-dom";
+import { bundlesSliceActions } from "../../store/bundles-slice";
 
 const DashboardData = () => {
   const userToken = localStorage.getItem("token");
-  const appId = useSelector((state) => state.currentApp?.app?._id);
+  const appId = useParams().id;
   const [systems, setSystems] = useState();
+  const [bundles, setBundles] = useState();
+  const [processedBundles, setProcessedBundles] = useState();
+  const [freshBundles, setFreshBundles] = useState();
 
   const dispatch = useDispatch();
 
@@ -25,6 +30,39 @@ const DashboardData = () => {
           setSystems(result.count);
           dispatch(systemsSliceActions.setHosts(result));
         });
+      fetch(`${baseURL}/report?appId=${appId}`, {
+        method: "GET",
+        headers: {
+          authorization: userToken,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          setBundles(result);
+          dispatch(bundlesSliceActions.setBundles(result));
+        });
+      // third req
+      fetch(`${baseURL}/report?appId=${appId}&bundleStatus=processed`, {
+        method: "GET",
+        headers: {
+          authorization: userToken,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          setProcessedBundles(result);
+        });
+      //fourth req
+      fetch(`${baseURL}/report?appId=${appId}&bundleStatus=fresh`, {
+        method: "GET",
+        headers: {
+          authorization: userToken,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          setFreshBundles(result);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -33,22 +71,25 @@ const DashboardData = () => {
   return (
     <div className="p-8 flex flex-wrap">
       <CardReport
-        numbers={69}
+        numbers={systems}
         title={"Systems Connected"}
         button={"show systems"}
         value={100}
+        link={`/app/${appId}/systems`}
       />
       <CardReport
-        numbers={8940}
+        numbers={processedBundles?.count}
         title={"Processed Bundles"}
         button={"show bundles"}
-        value={24}
+        value={(processedBundles?.count / bundles?.count) * 100}
+        link={`/app/${appId}/bundles`}
       />
       <CardReport
-        numbers={27000}
+        numbers={freshBundles?.count}
         title={"Fresh Bundles"}
         button={"show bundles"}
-        value={76}
+        value={(freshBundles?.count / bundles?.count) * 100}
+        link={`/app/${appId}/bundles`}
       />
     </div>
   );
