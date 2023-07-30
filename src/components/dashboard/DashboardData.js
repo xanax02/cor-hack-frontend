@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { baseURL } from "../../util/baseURL";
-import { hostSliceAction } from "../../store/hosts-slice";
-import BorderedGrayContainer from "../layout/BorderedGrayContainer";
-import { Link } from "react-router-dom";
+import CardReport from "../UI/CardReport";
+import { systemsSliceActions } from "../../store/systems-slice";
+import { useParams } from "react-router-dom";
+import { bundlesSliceActions } from "../../store/bundles-slice";
 
 const DashboardData = () => {
   const userToken = localStorage.getItem("token");
-  const appId = useSelector((state) => state.currentApp?.app?._id);
-  const [hosts, setHosts] = useState();
+  const appId = useParams().id;
+  const [systems, setSystems] = useState();
+  const [bundles, setBundles] = useState();
+  const [processedBundles, setProcessedBundles] = useState();
+  const [freshBundles, setFreshBundles] = useState();
 
   const dispatch = useDispatch();
 
@@ -23,8 +27,41 @@ const DashboardData = () => {
       })
         .then((response) => response.json())
         .then((result) => {
-          setHosts(result.count);
-          dispatch(hostSliceAction.setHosts(result));
+          setSystems(result.count);
+          dispatch(systemsSliceActions.setHosts(result));
+        });
+      fetch(`${baseURL}/report?appId=${appId}`, {
+        method: "GET",
+        headers: {
+          authorization: userToken,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          setBundles(result);
+          dispatch(bundlesSliceActions.setBundles(result));
+        });
+      // third req
+      fetch(`${baseURL}/report?appId=${appId}&bundleStatus=processed`, {
+        method: "GET",
+        headers: {
+          authorization: userToken,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          setProcessedBundles(result);
+        });
+      //fourth req
+      fetch(`${baseURL}/report?appId=${appId}&bundleStatus=fresh`, {
+        method: "GET",
+        headers: {
+          authorization: userToken,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          setFreshBundles(result);
         });
     } catch (err) {
       console.log(err);
@@ -32,44 +69,33 @@ const DashboardData = () => {
   }, [userToken]);
 
   return (
-    <div className="p-8 flex">
-      <div className="w-[350px]">
-        <p className="mb-2">Hosts </p>
-        <BorderedGrayContainer>
-          <Link>
-            <div className="py-2 px-3 hover:bg-white/10 duration-200 cursor-pointer">
-              <p className="inline-block text-gray-300">Number of Host: </p>
-              <p className="inline-block ml-2">{hosts}</p>
-            </div>
-          </Link>
-        </BorderedGrayContainer>
+    <div className="p-8 flex flex-wrap">
+      <div className="mr-6">
+        <CardReport
+          numbers={systems}
+          title={"Systems Connected"}
+          button={"show systems"}
+          value={100}
+          link={`/app/${appId}/systems`}
+        />
       </div>
-      <div className="w-[450px] ml-4">
-        <p className="mb-2">Bundles </p>
-        <BorderedGrayContainer>
-          <Link>
-            <div className="py-2 px-3 hover:bg-white/10 duration-200 cursor-pointer">
-              <p className="inline-block text-gray-300">Total Bundles: </p>
-              <p className="inline-block ml-2">{hosts}</p>
-            </div>
-          </Link>
-          <Link>
-            <div className="py-2 px-3 hover:bg-white/10 duration-200 cursor-pointer">
-              <p className="inline-block text-gray-300">
-                Number of processed bundles:{" "}
-              </p>
-              <p className="inline-block ml-2">{hosts}</p>
-            </div>
-          </Link>
-          <Link>
-            <div className="py-2 px-3 hover:bg-white/10 duration-200 cursor-pointer">
-              <p className="inline-block text-gray-300">
-                Number of processed bundles:{" "}
-              </p>
-              <p className="inline-block ml-2">{hosts}</p>
-            </div>
-          </Link>
-        </BorderedGrayContainer>
+      <div className="mr-6">
+        <CardReport
+          numbers={processedBundles?.count}
+          title={"Processed Bundles"}
+          button={"show bundles"}
+          value={(processedBundles?.count / bundles?.count) * 100}
+          link={`/app/${appId}/bundles`}
+        />
+      </div>
+      <div className="mr-6">
+        <CardReport
+          numbers={freshBundles?.count}
+          title={"Fresh Bundles"}
+          button={"show bundles"}
+          value={(freshBundles?.count / bundles?.count) * 100}
+          link={`/app/${appId}/bundles`}
+        />
       </div>
     </div>
   );

@@ -9,7 +9,6 @@ import SnackBar from "../UI/SnackBar";
 
 const Inputs = () => {
   const [open, setOpen] = useState(false);
-  const [data, setData] = useState(false);
   const folderNameRef = useRef();
   const folderDescRef = useRef();
   const folderPathRef = useRef();
@@ -65,6 +64,8 @@ const Inputs = () => {
         fileDescRef.current.value = "";
         fileNameRef.current.value = "";
         filePathRef.current.value = "";
+      } else {
+        setOpen(true);
       }
     }
   };
@@ -84,19 +85,19 @@ const Inputs = () => {
       );
       commandDescRef.current.value = "";
       commandNameRef.current.value = "";
+    } else {
+      setOpen(true);
     }
   };
 
   return (
     <>
-      {!data && (
-        <SnackBar
-          open={open}
-          message={"Plase provide necessary details"}
-          severity="error"
-          setOpen={setOpen}
-        />
-      )}
+      <SnackBar
+        open={open}
+        message={"Plase provide necessary details"}
+        severity="error"
+        setOpen={setOpen}
+      />
       <BorderedContainer>
         <p className="mb-4">CronString</p>
         <p className="inline-block">{appCronString}</p>

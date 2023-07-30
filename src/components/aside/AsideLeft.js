@@ -29,7 +29,7 @@ const AsideLeft = () => {
         }}
       />
       <NavLink
-        to={``}
+        to={`/app/${appId}/systems`}
         children={({ isActive }) => {
           return (
             <div
@@ -44,7 +44,7 @@ const AsideLeft = () => {
         }}
       />
       <NavLink
-        to={``}
+        to={`/app/${appId}/bundles`}
         children={({ isActive }) => {
           return (
             <div
