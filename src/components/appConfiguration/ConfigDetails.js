@@ -102,6 +102,7 @@ const ConfigDetails = (props) => {
             >
               {disable ? "Delete" : "Cancel"}
             </button>
+
             <button
               className={`text-xl px-4  rounded-md outline outline-[#24c58f] text-[#24c58f] ${
                 disable ? "cursor-not-allowed" : "cursor-pointer"
