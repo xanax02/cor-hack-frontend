@@ -8,6 +8,8 @@ import Settings from "../pages/Settings";
 import { loader as tokenLoader } from "./tokenLoader";
 import ErrorElement from "../components/layout/ErrorElement";
 import Dashboard from "../pages/Dashboard";
+import Bundles from "../pages/Bundles";
+import Systems from "../pages/Systems";
 
 // routes
 export const router = createBrowserRouter([
@@ -37,6 +39,8 @@ export const router = createBrowserRouter([
             loader: tokenLoader,
             element: <Settings />,
           },
+          { path: "bundles", loader: tokenLoader, element: <Bundles /> },
+          { path: "systems", loader: tokenLoader, element: <Systems /> },
         ],
       },
     ],

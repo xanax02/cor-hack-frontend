@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { baseURL } from "../../util/baseURL";
-import { hostSliceAction } from "../../store/hosts-slice";
-import BorderedGrayContainer from "../layout/BorderedGrayContainer";
-import { Link } from "react-router-dom";
 import CardReport from "../UI/CardReport";
+import { systemsSliceActions } from "../../store/systems-slice";
 
 const DashboardData = () => {
   const userToken = localStorage.getItem("token");
   const appId = useSelector((state) => state.currentApp?.app?._id);
-  const [hosts, setHosts] = useState();
+  const [systems, setSystems] = useState();
 
   const dispatch = useDispatch();
 
@@ -24,8 +22,8 @@ const DashboardData = () => {
       })
         .then((response) => response.json())
         .then((result) => {
-          setHosts(result.count);
-          dispatch(hostSliceAction.setHosts(result));
+          setSystems(result.count);
+          dispatch(systemsSliceActions.setHosts(result));
         });
     } catch (err) {
       console.log(err);
