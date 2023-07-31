@@ -13,6 +13,21 @@ const Console = () => {
   const dispatch = useDispatch();
   const [projects, setProjects] = useState([]);
 
+  const deleteHandler = async (id) => {
+    try {
+      const response = await fetch(`${baseURL}/project/${id}`, {
+        method: "DELETE",
+        headers: {
+          authorization: userToken,
+        },
+      });
+      console.log(response);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     fetch(`${baseURL}/project`, {
       method: "GET",
@@ -46,6 +61,10 @@ const Console = () => {
           return (
             <Link to={"/"} key={index + 1}>
               <CardSmall
+                isDelete={true}
+                onDelete={() => {
+                  deleteHandler(data._id);
+                }}
                 title={data.projectName}
                 onClick={() => {
                   selectProject(data._id);

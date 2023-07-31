@@ -17,7 +17,9 @@ const BundlesDetails = () => {
         },
       })
         .then((response) => response.json())
-        .then((result) => setReport(result));
+        .then((result) => {
+          setReport(result);
+        });
     } catch (err) {
       console.log(err);
     }

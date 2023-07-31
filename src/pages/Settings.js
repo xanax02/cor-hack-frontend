@@ -7,6 +7,7 @@ import ConfigDetails from "../components/appConfiguration/ConfigDetails";
 import { useDispatch } from "react-redux";
 import { appConfigurationActions } from "../store/appconfiguration-slice";
 import SnackBar from "../components/UI/SnackBar";
+import AppControls from "../components/appConfiguration/AppControls";
 
 const Settings = (props) => {
   const userToken = localStorage.getItem("token");
@@ -85,6 +86,7 @@ const Settings = (props) => {
             </div>
             <div className="w-[38%]">
               <ConfigDetails specId={specId} onClick={submitHandler} />
+              <AppControls />
             </div>
           </>
         )}

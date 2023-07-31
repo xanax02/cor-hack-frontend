@@ -36,6 +36,7 @@ const Overlay = () => {
   const changeProject = (id) => {
     dispatch(createOverlayActions.setShowOverlay(false));
     dispatch(currentProjectActions.setCurrentProject(id));
+    localStorage.setItem("currentProject", id);
     dispatch(currentAppActions.setCurrentApp({}));
     navigate("/", { replace: true });
   };
