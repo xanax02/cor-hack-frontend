@@ -4,7 +4,11 @@ const LineChart = (props) => {
   const [widthValue, setWidthValue] = useState(0);
 
   useEffect(() => {
-    setWidthValue(props.value);
+    if (props.value === NaN || props.value === Infinity || !props.value) {
+      setWidthValue(0);
+    } else {
+      setWidthValue(props.value);
+    }
   }, [props.value]);
 
   return (
