@@ -69,13 +69,15 @@ const CreateApp = () => {
       const appId = await response.text();
       setAppId(appId);
       setLoading(true);
-      const response2 = await fetch(`${baseURL}/daemon/build/${appId}`, {
+      const response2 = await fetch(`${baseURL}/daemon/build/${appId}?cronString=${cronStringRef.current.value}`, {
         method: "POST",
         headers: {
           authorization: userToken,
           host: "http://locahost:4200",
         },
-        body: JSON.stringify(cronStringRef.current.value),
+        // body: JSON.stringify({
+        //   cronString: cronStringRef.current.value
+        // }),
       });
       // console.log(response2);
       setLoading(false);
@@ -121,6 +123,7 @@ const CreateApp = () => {
 
       // Get the filename from the response headers (optional, but recommended)
       const filename = response.headers.get("Content-Disposition");
+      console.log(filename);
       const suggestedFilename = filename
         ? filename.split("filename=")[1]
         : "daemon.exe"; // Replace with your desired default filename
