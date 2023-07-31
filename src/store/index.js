@@ -6,6 +6,7 @@ import appConfigurationSlice from "./appconfiguration-slice";
 import currentAppSlice from "./currentApp-slice";
 import systemsSlice from "./systems-slice";
 import bundlesSlice from "./bundles-slice";
+import appReloadSlice from "./appListReload";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     currentApp: currentAppSlice,
     systems: systemsSlice,
     bundles: bundlesSlice,
+    appReload: appReloadSlice,
   },
 });

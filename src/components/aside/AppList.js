@@ -4,9 +4,10 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { baseURL } from "../../util/baseURL";
 import { NavLink, Link } from "react-router-dom";
+import { appConfigurationActions } from "../../store/appconfiguration-slice";
 
 const AppList = () => {
   const [apps, setApps] = useState();
@@ -14,6 +15,9 @@ const AppList = () => {
     useSelector((state) => state.currentProject.projectId) ||
     localStorage.getItem("currentProject");
   const userToken = localStorage.getItem("token");
+
+  const reload = useSelector((state) => state.appReload.reload);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     try {
@@ -28,7 +32,11 @@ const AppList = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [projectId, userToken]);
+  }, [projectId, userToken, reload]);
+
+  const appResetHandler = () => {
+    dispatch(appConfigurationActions.resetData());
+  };
 
   return (
     <Accordion
@@ -48,6 +56,7 @@ const AppList = () => {
         {apps?.map((app, index) => {
           return (
             <NavLink
+              onClick={appResetHandler}
               to={`/app/${app._id}/dashboard`}
               key={index + 1}
               children={({ isActive }) => {

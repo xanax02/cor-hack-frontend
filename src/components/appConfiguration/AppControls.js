@@ -3,11 +3,14 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { baseURL } from "../../util/baseURL";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { appReloadSliceAction } from "../../store/appListReload";
 
 const AppControls = () => {
   const appId = useParams().id;
   const userToken = localStorage.getItem("token");
   const [appName, setAppName] = useState();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     try {
@@ -33,11 +36,13 @@ const AppControls = () => {
         headers: {
           authorization: userToken,
         },
-      }).then((response) => console.log(response));
+      }).then(() => {
+        dispatch(appReloadSliceAction.reRender());
+        navigate("/", { replace: true });
+      });
     } catch (err) {
       console.log(err);
     }
-    navigate("/", { replace: true });
   };
 
   return (
