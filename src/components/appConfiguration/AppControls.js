@@ -22,7 +22,7 @@ const AppControls = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [appId]);
+  }, [appId, userToken]);
 
   const navigate = useNavigate();
 

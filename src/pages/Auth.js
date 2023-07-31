@@ -1,10 +1,14 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { baseURL } from "../util/baseURL";
+import SnackBar from "../components/UI/SnackBar";
 
 const Auth = () => {
   //navigation hook
   const navigate = useNavigate();
+
+  //snackbar opening state
+  const [open, setOpen] = useState(false);
 
   //refs
   const emailRef = useRef();
@@ -57,8 +61,14 @@ const Auth = () => {
           password: passwordRef.current.value,
         }),
       });
-      const result = await response.text();
-      console.log(result);
+      if (response.ok) {
+        emailRef.current.value = "";
+        passwordRef.current.value = "";
+        navigate("/auth");
+        setOpen(true);
+      } else {
+        alert("something went wrong please try again");
+      }
     } catch (err) {
       console.log(err.message);
     }
@@ -66,7 +76,14 @@ const Auth = () => {
 
   return (
     <div className="w-[100vw] h-[100vh] flex overflow-hidden">
+      <SnackBar
+        open={open}
+        severity={"success"}
+        message={"successfully registered"}
+        setOpen={setOpen}
+      />
       <div className="w-[40%] h-[100vh] text-center mt-40">
+        {!isLogin && <p className="text-lg text-gray-400">Signup</p>}
         <input
           className="w-[66%] h-14 bg-[#1E272D] rounded-lg px-2 placeholder:text-white placeholder:tracking-wider placeholder:text-lg focus:outline-none"
           type="text"

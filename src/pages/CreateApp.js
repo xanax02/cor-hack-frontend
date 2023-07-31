@@ -9,10 +9,12 @@ import { useSelector } from "react-redux";
 import SnackBar from "../components/UI/SnackBar";
 
 import { StyledMenu } from "../components/UI/StyledMenu";
+import Loading from "../components/UI/Loading";
 
 const CreateApp = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [appId, setAppId] = useState();
   const appName = useRef();
   const appDesc = useRef();
@@ -66,6 +68,7 @@ const CreateApp = () => {
       });
       const appId = await response.text();
       setAppId(appId);
+      setLoading(true);
       const response2 = await fetch(`${baseURL}/daemon/build/${appId}`, {
         method: "POST",
         headers: {
@@ -74,7 +77,8 @@ const CreateApp = () => {
         },
         body: JSON.stringify(cronStringRef.current.value),
       });
-      console.log(response2);
+      // console.log(response2);
+      setLoading(false);
       if (response.status === 201) {
         setdownButton(true);
       } else {
@@ -160,6 +164,7 @@ const CreateApp = () => {
         severity="error"
         setOpen={setOpen}
       />
+      <Loading open={loading} />
       <div className="relative flex h-[100vh] w-[100vw]">
         <div className="absolute left-[5%] top-[20%]">
           <h2 className="text-6xl text-gray-200 font-medium">
