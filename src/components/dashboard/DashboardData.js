@@ -25,9 +25,17 @@ const DashboardData = () => {
           authorization: userToken,
         },
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            setSystems(0);
+            dispatch(
+              systemsSliceActions.setHosts({ count: 0, hostnameList: [] })
+            );
+          }
+          return response.json();
+        })
         .then((result) => {
-          setSystems(result.count);
+          setSystems(result?.count);
           dispatch(systemsSliceActions.setHosts(result));
         });
       fetch(`${baseURL}/report?appId=${appId}`, {
@@ -66,16 +74,16 @@ const DashboardData = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [userToken]);
+  }, [userToken, appId]);
 
   return (
     <div className="p-8 flex flex-wrap">
       <div className="mr-6">
         <CardReport
-          numbers={systems}
+          numbers={systems ? systems : 0}
           title={"Systems Connected"}
           button={"show systems"}
-          value={100}
+          value={systems ? 100 : 0}
           link={`/app/${appId}/systems`}
         />
       </div>

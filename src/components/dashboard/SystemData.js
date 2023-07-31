@@ -18,8 +18,8 @@ const SystemData = () => {
             Number of systems connected :
           </p>
           <div className="flex items-center">
-            <p className="mr-2 text-2xl">{systems.count}</p>
-            <SmallLineChart value={80} />
+            <p className="mr-2 text-2xl">{systems.count ? systems.count : 0}</p>
+            <SmallLineChart value={systems.count ? 100 : 0} />
           </div>
         </div>
       </BorderedGrayContainer>

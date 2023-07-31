@@ -74,7 +74,7 @@ const BundlesData = () => {
               <p className="text-gray-300 text-2xl">Total Bundles :</p>
               <div className="flex items-center">
                 <p className="mr-2 text-2xl">{bundles.count}</p>
-                <SmallLineChart value={100} />
+                <SmallLineChart value={bundles.count === 0 ? 0 : 100} />
               </div>
             </div>
             <div className="flex justify-between">

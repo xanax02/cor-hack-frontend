@@ -36,6 +36,7 @@ const AppList = () => {
 
   const appResetHandler = () => {
     dispatch(appConfigurationActions.resetData());
+    dispatch(appConfigurationActions.setDataPresent(false));
   };
 
   return (
