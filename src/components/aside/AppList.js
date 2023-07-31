@@ -15,6 +15,8 @@ const AppList = () => {
     localStorage.getItem("currentProject");
   const userToken = localStorage.getItem("token");
 
+  const reload = useSelector((state) => state.appReload.reload);
+
   useEffect(() => {
     try {
       fetch(`${baseURL}/app?projectId=${projectId}`, {
@@ -28,7 +30,7 @@ const AppList = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [projectId, userToken]);
+  }, [projectId, userToken, reload]);
 
   return (
     <Accordion
