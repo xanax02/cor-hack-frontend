@@ -70,7 +70,7 @@ const CreateApp = () => {
         method: "POST",
         headers: {
           authorization: userToken,
-          host: baseURL,
+          host: "http://locahost:4200",
         },
         body: JSON.stringify(cronStringRef.current.value),
       });
@@ -119,7 +119,7 @@ const CreateApp = () => {
       const filename = response.headers.get("Content-Disposition");
       const suggestedFilename = filename
         ? filename.split("filename=")[1]
-        : "downloaded_application.zip"; // Replace with your desired default filename
+        : "daemon.exe"; // Replace with your desired default filename
 
       // Convert the response body to a blob
       const blob = await response.blob();
@@ -144,9 +144,11 @@ const CreateApp = () => {
 
   const handleWinDown = () => {
     downloader("windows");
+    navigate("/", { replace: true });
   };
   const handleLinDown = () => {
     downloader("linux");
+    navigate("/", { replace: true });
   };
 
   // returning jsx

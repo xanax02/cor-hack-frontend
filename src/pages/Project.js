@@ -3,16 +3,20 @@ import { useNavigate } from "react-router-dom";
 
 import { baseURL } from "../util/baseURL";
 import ButtonNavCol from "../components/UI/ButtonNavCol";
+import { useDispatch } from "react-redux";
+import { createOverlayActions } from "../store/createOverlay-slice";
 
 const Project = () => {
   const projectName = useRef();
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const nextHandler = async () => {
     //fetch api for new project
     const token = localStorage.getItem("token");
     try {
-      await fetch(`${baseURL}/project`, {
+      const response = await fetch(`${baseURL}/project`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -23,6 +27,9 @@ const Project = () => {
           createAt: new Date().toISOString(),
         }),
       });
+      const result = await response.text();
+      localStorage.setItem("currentProject", result);
+      dispatch(createOverlayActions.setShowOverlay(false));
       navigate("/", { replace: true });
     } catch (err) {
       console.log(err);

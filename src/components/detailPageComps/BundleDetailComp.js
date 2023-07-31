@@ -9,6 +9,8 @@ const BundleDetailComp = (props) => {
   if (!props.data) {
     return;
   }
+
+  // console.log(props.data);
   return (
     <>
       <Navigation />
