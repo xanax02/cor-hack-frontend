@@ -66,7 +66,7 @@ const DashboardData = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [userToken]);
+  }, [userToken, appId]);
 
   return (
     <div className="p-8 flex flex-wrap">
