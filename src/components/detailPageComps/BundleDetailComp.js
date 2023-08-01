@@ -4,6 +4,7 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import BorderedGrayContainer from "../layout/BorderedGrayContainer";
 import BundleDetailReportItem from "./BundleDetailReportItem";
 import BundleAllDetail from "./BundleAllDetail";
+import { Link } from "react-router-dom";
 
 const BundleDetailComp = (props) => {
   if (!props.data) {
@@ -43,6 +44,13 @@ const BundleDetailComp = (props) => {
                 title={"Generated At"}
                 data={props.data?.generatedAt}
               />
+              <div className="flex justify-left mt-4">
+                <Link to={"logs"}>
+                  <p className="bg-[#0D253F] px-4 py-1 rounded-md cursor-pointer">
+                    Log Analyser
+                  </p>
+                </Link>
+              </div>
             </div>
           </div>
         </BorderedGrayContainer>

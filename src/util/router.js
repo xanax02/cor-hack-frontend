@@ -47,13 +47,11 @@ export const router = createBrowserRouter([
             path: "bundles/details/:reportId",
             loader: tokenLoader,
             element: <BundlesDetails />,
-            children: [
-              {
-                path: "logs",
-                loader: tokenLoader,
-                element: <LogAnalysis />,
-              },
-            ],
+          },
+          {
+            path: "bundles/details/:reportId/logs",
+            loader: tokenLoader,
+            element: <LogAnalysis />,
           },
           {
             path: "systems/",
