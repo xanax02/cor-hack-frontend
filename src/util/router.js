@@ -5,13 +5,14 @@ import Console from "../pages/Console";
 import Project from "../pages/Project";
 import CreateApp from "../pages/CreateApp";
 import Settings from "../pages/Settings";
-import { loader as tokenLoader } from "./tokenLoader";
+import { loader, loader as tokenLoader } from "./tokenLoader";
 import ErrorElement from "../components/layout/ErrorElement";
 import Dashboard from "../pages/Dashboard";
 import Bundles from "../pages/Bundles";
 import Systems from "../pages/Systems";
 import SystemDetail from "../pages/SystemDetail";
 import BundlesDetails from "../pages/BundlesDetails";
+import LogAnalysis from "../pages/LogAnalysis";
 
 // routes
 export const router = createBrowserRouter([
@@ -46,6 +47,11 @@ export const router = createBrowserRouter([
             path: "bundles/details/:reportId",
             loader: tokenLoader,
             element: <BundlesDetails />,
+          },
+          {
+            path: "bundles/details/:reportId/logs",
+            loader: tokenLoader,
+            element: <LogAnalysis />,
           },
           {
             path: "systems/",
